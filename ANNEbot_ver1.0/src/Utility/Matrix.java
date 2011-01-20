@@ -36,7 +36,7 @@ public class Matrix {
     }
 
     //Creates a Row Matrix from a one dimensional array
-    static Matrix createRowMatrix(double[] myRowMatrix){
+    public static Matrix createRowMatrix(double[] myRowMatrix){
         Matrix rowMatrix = new Matrix (1,myRowMatrix.length);
         for(int i = 0 ; i < rowMatrix.numOfCols ; i++){
             rowMatrix.matrix[0][i] = myRowMatrix[i];
@@ -46,7 +46,7 @@ public class Matrix {
     }
 
     //Creates a Column Matrix from a one dimensional array
-    static Matrix createColumnMatrix(double[] myColMatrix){
+    public static Matrix createColumnMatrix(double[] myColMatrix){
         Matrix colMatrix = new Matrix (myColMatrix.length,1);
         for(int i = 0 ; i < colMatrix.numOfRows ; i++){
             colMatrix.matrix[i][0] = myColMatrix[i];
@@ -57,27 +57,27 @@ public class Matrix {
 
 
     //Gets the value of a specified cell
-    double get(int rowNum, int colNum){
+    public double get(int rowNum, int colNum){
         return this.matrix[rowNum][colNum];
     }
 
     //Sets the value of a specified cell
-    void set(int rowNum, int colNum, double value){
+    public void set(int rowNum, int colNum, double value){
         this.matrix[rowNum][colNum] = value;
     }
 
     //Gets the number of rows
-    int getNumOfRows(){
+    public int getNumOfRows(){
         return this.numOfRows;
     }
 
     //Gets the number of cols
-    int getNumOfCols(){
+    public int getNumOfCols(){
         return this.numOfCols;
     }
 
     //Adds a given value to all the elements in the matrix
-    void add(double value2add){
+    public void add(double value2add){
         for(int i = 0; i < this.numOfRows ; i++){
             for(int j = 0; j < this.numOfCols ; j++){
                 double temp = this.matrix[i][j];
@@ -87,7 +87,7 @@ public class Matrix {
     }
 
     //Sets all the values of the elements to zero
-    void clear(){
+    public void clear(){
         for(int i = 0; i < this.numOfRows ; i++){
             for(int j = 0; j < this.numOfCols ; j++){
                 this.matrix[i][j] = 0;
@@ -96,7 +96,7 @@ public class Matrix {
     }
 
     //Creates a copy of the given Matrix
-    Matrix cloneMatrix(){
+    public Matrix cloneMatrix(){
         Matrix clone = new Matrix(this.numOfRows , this.numOfCols);
         for(int i = 0; i < this.numOfRows ; i++){
             for(int j = 0; j < this.numOfCols ; j++){
@@ -107,7 +107,7 @@ public class Matrix {
     }
 
     //Checks if every element in two given matrices are equal within a given tolerance level
-    boolean equal(Matrix matrix2Compare, double tolerance){
+    public boolean equal(Matrix matrix2Compare, double tolerance){
         boolean answer = true;
         double difference = 0;
         for(int i = 0; i < this.numOfRows ; i++){
@@ -137,7 +137,7 @@ public class Matrix {
     }
     
     //Returns a specified row of the matrix as a Matrix
-    Matrix getRow(int rowNum){
+    public Matrix getRow(int rowNum){
         Matrix rowMatrix = new Matrix(1,this.numOfCols);
         for(int i = 0; i < this.numOfCols ; i++){
                 rowMatrix.matrix[0][i] = this.matrix[rowNum][i];
@@ -146,7 +146,7 @@ public class Matrix {
     }
 
     //Returns a specified column of the matrix as a Matrix
-    Matrix getCol(int colNum){
+    public Matrix getCol(int colNum){
         Matrix colMatrix = new Matrix(this.numOfRows,1);
         for(int i = 0; i < this.numOfRows ; i++){
             colMatrix.matrix[i][0] = this.matrix[i][colNum];
@@ -173,7 +173,7 @@ public class Matrix {
     }
 */
     //Checks of the matrix is a vector i.e. a column matrix or a row matrix
-    boolean isVector(){
+    public boolean isVector(){
         boolean answer = false;
             if(this.numOfCols == 1 || this.numOfRows == 1){
                 answer = true;
@@ -182,7 +182,7 @@ public class Matrix {
     }
 
     //Checks if the matrix has rows or columns with all zeros
-    boolean isZero(){
+    public boolean isZero(){
         boolean answer = false;
         int loopCounter = 0;
         int zeroCounter = 0;
@@ -231,7 +231,7 @@ public class Matrix {
     }
 
     //Adds all the values in the matrix and returns the sum
-    double sum(){
+    public double sum(){
         double sum = 0;
         for(int i = 0; i < this.numOfRows ; i++){
             for(int j = 0; j < this.numOfCols ; j++){
@@ -243,7 +243,7 @@ public class Matrix {
     }
 
     //Returns all the values in the matrix packed into a one dimensional array
-    double[] toPackedArray(){
+    public double[] toPackedArray(){
         double[] packedArray = new double[this.numOfRows+this.numOfCols];
         for(int i = 0; i < this.numOfRows ; i++){
             for(int j = 0; j < this.numOfCols ; j++){
@@ -254,7 +254,7 @@ public class Matrix {
     }
 
     //Prints the values in the matrix
-    void printMatrix(){
+    public void printMatrix(){
         for(int i = 0; i < this.numOfRows ; i++){
             for(int j = 0; j < this.numOfCols ; j++){
                 System.out.print(this.matrix[i][j]+"\t");

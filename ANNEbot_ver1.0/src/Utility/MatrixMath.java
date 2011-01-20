@@ -12,7 +12,7 @@ package Utility;
 public class MatrixMath {
 
     //Matrix add operation
-    static Matrix add(Matrix matA, Matrix matB) throws Exception{
+    public static Matrix add(Matrix matA, Matrix matB) throws Exception{
         if(matA.getNumOfRows() == matB.getNumOfRows() && matA.getNumOfCols() == matB.getNumOfCols()){
             Matrix result = new Matrix(matA.getNumOfRows(),matA.getNumOfCols());
             double sum = 0;
@@ -29,8 +29,10 @@ public class MatrixMath {
         }
     }
 
+
+
     //Matrix subtract operation
-    static Matrix subtract(Matrix matA, Matrix matB) throws Exception{
+    public static Matrix subtract(Matrix matA, Matrix matB) throws Exception{
         if(matA.getNumOfRows() == matB.getNumOfRows() && matA.getNumOfCols() == matB.getNumOfCols()){
             Matrix result = new Matrix(matA.getNumOfRows(),matA.getNumOfCols());
             double difference = 0;
@@ -48,7 +50,7 @@ public class MatrixMath {
     }
 
     //Scalar Multiplication
-    static Matrix scalarMultiply(Matrix matrix , double scalar){
+    public static Matrix scalarMultiply(Matrix matrix , double scalar){
         Matrix result = new Matrix(matrix.getNumOfRows() , matrix.getNumOfCols());
         for(int i = 0; i < result.getNumOfRows() ; i++){
             for(int j = 0; j < result.getNumOfCols() ; j++){
@@ -60,7 +62,7 @@ public class MatrixMath {
     }
 
     //Matrix multiplication operation
-    static Matrix multiply(Matrix matA, Matrix matB) throws Exception{
+    public static Matrix multiply(Matrix matA, Matrix matB) throws Exception{
         if(matA.getNumOfCols() == matB.getNumOfRows()){
             Matrix result = new Matrix(matA.getNumOfRows(),matB.getNumOfCols());
             double sumOfMultiples = 0 , multiple = 0 , temp = 0;
@@ -83,7 +85,7 @@ public class MatrixMath {
     }
 
     //Dot Product of two Vector Matrices
-    static double dotProduct(Matrix matA, Matrix matB) throws Exception{
+    public static double dotProduct(Matrix matA, Matrix matB) throws Exception{
         double dotProduct = 0 , temp = 0 , multiple = 0;
         if(matA.isVector()&&matB.isVector()&&matA.getNumOfRows() == matB.getNumOfRows() && matA.getNumOfCols() == matB.getNumOfCols()){
             for(int i = 0; i < matA.getNumOfRows() ; i++){
@@ -106,7 +108,7 @@ public class MatrixMath {
     }
 
     //Gives transpose of a given matrix
-    static Matrix transpose(Matrix matA){
+    public static Matrix transpose(Matrix matA){
         Matrix transpose = new Matrix(matA.getNumOfCols() , matA.getNumOfRows());
             for(int i = 0; i < transpose.getNumOfRows() ; i++){
                 for(int j = 0; j < transpose.getNumOfCols() ; j++){
@@ -117,7 +119,7 @@ public class MatrixMath {
     }
 
     //Returns an identity matrix of the specified size
-    static Matrix identity(int numOfRows){
+    public static Matrix identity(int numOfRows){
         Matrix identity = new Matrix(numOfRows , numOfRows);
         for(int i = 0; i < identity.getNumOfRows() ; i++){
                 for(int j = 0; j < identity.getNumOfCols() ; j++){
@@ -131,7 +133,7 @@ public class MatrixMath {
     }
 
     //Returns the vector length
-    static double vectorLength(Matrix vector) throws Exception{
+    public static double vectorLength(Matrix vector) throws Exception{
         if(vector.isVector()){
             double vectorLength = 0 , temp = 0 , sumOfSquares = 0;
             double[]vectorArray = vector.toPackedArray();
