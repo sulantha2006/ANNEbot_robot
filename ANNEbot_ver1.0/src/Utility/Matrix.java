@@ -25,6 +25,7 @@ public class Matrix {
                 this.matrix[i][j] = 0;
             }
         }
+        
     }
 
     //Creates a Matrix instance when a 2 dimensionsl array is passed
