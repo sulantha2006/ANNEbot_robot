@@ -1,14 +1,14 @@
 /*
- * ANNEbotAboutBox.java
+ * ANNEbot_ver10AboutBox.java
  */
 
-package annebot;
+package annebot_ver10;
 
 import org.jdesktop.application.Action;
 
-public class ANNEbotAboutBox extends javax.swing.JDialog {
+public class ANNEbot_ver10AboutBox extends javax.swing.JDialog {
 
-    public ANNEbotAboutBox(java.awt.Frame parent) {
+    public ANNEbot_ver10AboutBox(java.awt.Frame parent) {
         super(parent);
         initComponents();
         getRootPane().setDefaultButton(closeButton);
@@ -38,13 +38,13 @@ public class ANNEbotAboutBox extends javax.swing.JDialog {
         javax.swing.JLabel imageLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(annebot.ANNEbotApp.class).getContext().getResourceMap(ANNEbotAboutBox.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(annebot_ver10.ANNEbot_ver10App.class).getContext().getResourceMap(ANNEbot_ver10AboutBox.class);
         setTitle(resourceMap.getString("title")); // NOI18N
         setModal(true);
         setName("aboutBox"); // NOI18N
         setResizable(false);
 
-        javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(annebot.ANNEbotApp.class).getContext().getActionMap(ANNEbotAboutBox.class, this);
+        javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(annebot_ver10.ANNEbot_ver10App.class).getContext().getActionMap(ANNEbot_ver10AboutBox.class, this);
         closeButton.setAction(actionMap.get("closeAboutBox")); // NOI18N
         closeButton.setName("closeButton"); // NOI18N
 
@@ -86,21 +86,20 @@ public class ANNEbotAboutBox extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(imageLabel)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(versionLabel)
-                                .addComponent(vendorLabel)
-                                .addComponent(homepageLabel))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(appVersionLabel)
-                                .addComponent(appVendorLabel)
-                                .addComponent(appHomepageLabel)))
-                        .addComponent(appTitleLabel, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(closeButton))
-                    .addComponent(appDescLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(versionLabel)
+                            .addComponent(vendorLabel)
+                            .addComponent(homepageLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(appVersionLabel)
+                            .addComponent(appVendorLabel)
+                            .addComponent(appHomepageLabel)))
+                    .addComponent(appTitleLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(appDescLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
+                    .addComponent(closeButton))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -123,7 +122,7 @@ public class ANNEbotAboutBox extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(homepageLabel)
                     .addComponent(appHomepageLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addComponent(closeButton)
                 .addContainerGap())
         );

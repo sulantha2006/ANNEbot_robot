@@ -1,8 +1,8 @@
 /*
- * ANNEbotView.java
+ * ANNEbot_ver10View.java
  */
 
-package annebot;
+package annebot_ver10;
 
 import org.jdesktop.application.Action;
 import org.jdesktop.application.ResourceMap;
@@ -19,9 +19,9 @@ import javax.swing.JFrame;
 /**
  * The application's main frame.
  */
-public class ANNEbotView extends FrameView {
+public class ANNEbot_ver10View extends FrameView {
 
-    public ANNEbotView(SingleFrameApplication app) {
+    public ANNEbot_ver10View(SingleFrameApplication app) {
         super(app);
 
         initComponents();
@@ -84,11 +84,11 @@ public class ANNEbotView extends FrameView {
     @Action
     public void showAboutBox() {
         if (aboutBox == null) {
-            JFrame mainFrame = ANNEbotApp.getApplication().getMainFrame();
-            aboutBox = new ANNEbotAboutBox(mainFrame);
+            JFrame mainFrame = ANNEbot_ver10App.getApplication().getMainFrame();
+            aboutBox = new ANNEbot_ver10AboutBox(mainFrame);
             aboutBox.setLocationRelativeTo(mainFrame);
         }
-        ANNEbotApp.getApplication().show(aboutBox);
+        ANNEbot_ver10App.getApplication().show(aboutBox);
     }
 
     /** This method is called from within the constructor to
@@ -101,8 +101,6 @@ public class ANNEbotView extends FrameView {
     private void initComponents() {
 
         mainPanel = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
@@ -116,42 +114,24 @@ public class ANNEbotView extends FrameView {
 
         mainPanel.setName("mainPanel"); // NOI18N
 
-        javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(annebot.ANNEbotApp.class).getContext().getActionMap(ANNEbotView.class, this);
-        jButton1.setAction(actionMap.get("startNow")); // NOI18N
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(annebot.ANNEbotApp.class).getContext().getResourceMap(ANNEbotView.class);
-        jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
-        jButton1.setName("jButton1"); // NOI18N
-
-        jButton2.setAction(actionMap.get("stop")); // NOI18N
-        jButton2.setText(resourceMap.getString("jButton2.text")); // NOI18N
-        jButton2.setName("jButton2"); // NOI18N
-
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                .addContainerGap(272, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addContainerGap())
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                .addContainerGap(209, Short.MAX_VALUE)
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addGap(22, 22, 22))
+            .addGap(0, 252, Short.MAX_VALUE)
         );
 
         menuBar.setName("menuBar"); // NOI18N
 
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(annebot_ver10.ANNEbot_ver10App.class).getContext().getResourceMap(ANNEbot_ver10View.class);
         fileMenu.setText(resourceMap.getString("fileMenu.text")); // NOI18N
         fileMenu.setName("fileMenu"); // NOI18N
 
+        javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(annebot_ver10.ANNEbot_ver10App.class).getContext().getActionMap(ANNEbot_ver10View.class, this);
         exitMenuItem.setAction(actionMap.get("quit")); // NOI18N
         exitMenuItem.setName("exitMenuItem"); // NOI18N
         fileMenu.add(exitMenuItem);
@@ -186,7 +166,7 @@ public class ANNEbotView extends FrameView {
             .addGroup(statusPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(statusMessageLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 230, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 226, Short.MAX_VALUE)
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(statusAnimationLabel)
@@ -209,19 +189,7 @@ public class ANNEbotView extends FrameView {
         setStatusBar(statusPanel);
     }// </editor-fold>//GEN-END:initComponents
 
-   
-    @Action
-    public void stop() {
-        System.out.println("Good Bye");
-    }
-
-    @Action
-    public void startNow() {
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JProgressBar progressBar;

@@ -1,8 +1,8 @@
 /*
- * ANNEbotApp.java
+ * ANNEbot_ver10App.java
  */
 
-package annebot;
+package annebot_ver10;
 
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
@@ -10,13 +10,13 @@ import org.jdesktop.application.SingleFrameApplication;
 /**
  * The main class of the application.
  */
-public class ANNEbotApp extends SingleFrameApplication {
+public class ANNEbot_ver10App extends SingleFrameApplication {
 
     /**
      * At startup create and show the main frame of the application.
      */
     @Override protected void startup() {
-        show(new ANNEbotView(this));
+        show(new ANNEbot_ver10View(this));
     }
 
     /**
@@ -29,16 +29,16 @@ public class ANNEbotApp extends SingleFrameApplication {
 
     /**
      * A convenient static getter for the application instance.
-     * @return the instance of ANNEbotApp
+     * @return the instance of ANNEbot_ver10App
      */
-    public static ANNEbotApp getApplication() {
-        return Application.getInstance(ANNEbotApp.class);
+    public static ANNEbot_ver10App getApplication() {
+        return Application.getInstance(ANNEbot_ver10App.class);
     }
 
     /**
      * Main method launching the application.
      */
     public static void main(String[] args) {
-        launch(ANNEbotApp.class, args);
+        launch(ANNEbot_ver10App.class, args);
     }
 }

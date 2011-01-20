@@ -3,12 +3,12 @@
  * and open the template in the editor.
  */
 
-package annebot;
+package EvolutionaryAlgo;
 
 /**
  *
- * @author Dilmi
+ * @author dilmi
  */
-public class NeuronLayer {
+public class Genome {
 
 }

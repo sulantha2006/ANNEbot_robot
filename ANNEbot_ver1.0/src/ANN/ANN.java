@@ -3,7 +3,9 @@
  * and open the template in the editor.
  */
 
-package annebot;
+package ANN;
+
+import Utility.Matrix;
 
 /**
  *
@@ -22,7 +24,8 @@ public class ANN {
         this.inputNeurons = new Matrix(this.inputNeuronCount, 1);
         this.outputNeurons = new Matrix(this.outputNeuronCount, 1);
         this.weightMatrix = new Matrix(this.outputNeuronCount , (this.inputNeuronCount + 1));
-        
+
     }
-    
+
 }
+
