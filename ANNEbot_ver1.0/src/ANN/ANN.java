@@ -14,22 +14,30 @@ import Utility.*;
 public class ANN {
     int inputNeuronCount = 0;
     int outputNeuronCount = 0;
-    int hiddenLayerCount = 0;
-    int[] hiddenLayerNeuronCount ;
-    NeuronLayer inputLayer;
+    boolean hasAHiddenLayer ;
+    NeuronLayer [] layers ;
+    
 
-    ANN(int numInputNeurons , int numOutputNeurons, int hlNcount){
+    ANN(int numInputNeurons , int numOutputNeurons, boolean hasHL){
         this.inputNeuronCount = numInputNeurons ;
         this.outputNeuronCount = numOutputNeurons ;
-        this.hiddenLayerCount = 1;
-        this.hiddenLayerNeuronCount = new int[1];
-        this.hiddenLayerNeuronCount[0] = hlNcount;
+        this.hasAHiddenLayer = hasHL;
         this.initANN();
         
     }
 
+
+
     private void initANN(){
-        
+        if(this.hasAHiddenLayer){
+            this.layers = new NeuronLayer[3];
+            //layers[0] = new NeuronLayer
+        }
+
+        else{
+            this.layers = new NeuronLayer[2];
+        }
+
 
     }
 
