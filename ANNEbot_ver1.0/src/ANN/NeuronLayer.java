@@ -10,6 +10,7 @@ package ANN;
  * @author dilmi
  */
 public class NeuronLayer {
+    private String name = "";
     private boolean isInputLayer = false;
     private int neuronCount =0;
     private int neuronWeightCount = 0;
@@ -20,6 +21,14 @@ public class NeuronLayer {
         this.neuronCount = cNcount;
         this.neuronWeightCount = cWcount;
         this.neurons = new Neuron[this.neuronCount];
+    }
+
+    public NeuronLayer(boolean cIsInputLayer, int cNcount , int cWcount, String cName){
+        this.isInputLayer = cIsInputLayer;
+        this.neuronCount = cNcount;
+        this.neuronWeightCount = cWcount;
+        this.neurons = new Neuron[this.neuronCount];
+        this.name = cName;
     }
 
     public boolean isIsInputLayer() {
