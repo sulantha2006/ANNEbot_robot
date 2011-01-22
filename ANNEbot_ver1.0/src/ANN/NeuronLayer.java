@@ -16,19 +16,30 @@ public class NeuronLayer {
     private int neuronWeightCount = 0;
     Neuron [] neurons;
 
-    public NeuronLayer(boolean cIsInputLayer, int cNcount , int cWcount){
+    //Constructor for Input Layer
+    public NeuronLayer(boolean cIsInputLayer, int cNcount){
         this.isInputLayer = cIsInputLayer;
         this.neuronCount = cNcount;
-        this.neuronWeightCount = cWcount;
+        this.neuronWeightCount = 1;
+        this.name = "Input Layer";
         this.neurons = new Neuron[this.neuronCount];
+        this.initNeuronLayer();
     }
 
-    public NeuronLayer(boolean cIsInputLayer, int cNcount , int cWcount, String cName){
-        this.isInputLayer = cIsInputLayer;
+    //Constructor for any layer other that Input Layer
+    public NeuronLayer(int cNcount , int cWcount, String cName){
         this.neuronCount = cNcount;
         this.neuronWeightCount = cWcount;
         this.neurons = new Neuron[this.neuronCount];
         this.name = cName;
+        this.initNeuronLayer();
+    }
+
+    //Initialize the Neuron Layer by creating the Neuron objects in the neurons array
+    private void initNeuronLayer(){
+        for(int i = 0 ; i < this.neuronCount ; i++){
+            this.neurons[i] = new Neuron(this.neuronWeightCount, this.isInputLayer);
+        }
     }
 
     public boolean isIsInputLayer() {
@@ -54,8 +65,4 @@ public class NeuronLayer {
     public void setNeuronWeightCount(int neuronWeightCount) {
         this.neuronWeightCount = neuronWeightCount;
     }
-
-
-
-
 }
