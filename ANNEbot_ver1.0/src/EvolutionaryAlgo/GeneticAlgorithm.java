@@ -24,6 +24,9 @@ public class GeneticAlgorithm {
     int worstFitness;
     int indexOfBestGenome;
 
+    int numberOfEliteGenomesToCopy = 2;
+    int numberOfCopiesPerGenome = 1;
+
     double maxMutationFactor = 0.3;
     double crossoverRate;
     double mutationRate;
@@ -88,12 +91,37 @@ public class GeneticAlgorithm {
     ArrayList<Genome> getNewPopulation(ArrayList<Genome> oldPopulation){
         ArrayList<Genome> newPopulation = new ArrayList<Genome>();
         genomePopulation = oldPopulation;
+        Collections.sort(genomePopulation); //Check this
+        newPopulation = copyNBestFittedGenomesToNewPopulation(numberOfEliteGenomesToCopy, numberOfCopiesPerGenome, newPopulation);
+        while (newPopulation.size()<genomePopulation.size()){
+            Genome mom = getGenomeRoulette();
+            Genome dad = getGenomeRoulette();
+            Genome baby1 = null;
+            Genome baby2 = null;
 
-        
+            Genome[] babyArray = crossover(mom, dad);
+            baby1 = babyArray[0];
+            baby2 = babyArray[1];
 
+            baby1 = mutate(baby1);
+            baby2 = mutate(baby2);
+
+            newPopulation.add(baby1);
+            newPopulation.add(baby2);
+        }
 
         return newPopulation;
     }
+
+    ArrayList<Genome> copyNBestFittedGenomesToNewPopulation(int numberOfEliteGenomesToCopy, int numberOfCopiesPerGenome, ArrayList<Genome> newPopulation) {
+        for(int i = 0; i < numberOfEliteGenomesToCopy; i++){
+            for (int j = 0; j < numberOfCopiesPerGenome; j++){
+                newPopulation.add(genomePopulation.get(genomePopulation.size()-1-i));
+            }
+        }
+        return newPopulation;
+    }
+
 
 
     
