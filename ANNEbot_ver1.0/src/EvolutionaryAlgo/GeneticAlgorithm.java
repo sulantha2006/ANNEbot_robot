@@ -7,6 +7,7 @@ package EvolutionaryAlgo;
 import Utility.*;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Collections;
 
 
 /**
@@ -28,6 +29,8 @@ public class GeneticAlgorithm {
     double mutationRate;
 
     int Generation;
+
+
 
 
     Genome getGenomeRoulette(){
@@ -80,6 +83,16 @@ public class GeneticAlgorithm {
         }
 
         return babyArray;
+    }
+
+    ArrayList<Genome> getNewPopulation(ArrayList<Genome> oldPopulation){
+        ArrayList<Genome> newPopulation = new ArrayList<Genome>();
+        genomePopulation = oldPopulation;
+
+        
+
+
+        return newPopulation;
     }
 
 

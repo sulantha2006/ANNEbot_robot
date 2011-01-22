@@ -11,10 +11,10 @@ import Utility.*;
  */
 public class Genome {
     Matrix weightMatrix;
-    double fitnessValue;
+    double fitnessValue = 0;
 
-    Genome(){
-        fitnessValue = 0;
+    Genome(Matrix passweights){
+        weightMatrix = passweights;
     }
 
     Genome(Matrix passweights, double passfitness){
