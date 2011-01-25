@@ -18,14 +18,6 @@ public class ANNTrainer {
         this.ann = myAnn;
     }
    
-    Matrix[] getWeights(ANN myANN){
-        Matrix[] weights= new Matrix[myANN.getInputNeuronCount()+myANN.getHiddenLNeuronCount()+myANN.getOutputNeuronCount()];
-        for(int i = 0 ; i < myANN.getLayers().length ; i++){
-            for(int j = 0 ; j < myANN.getLayers()[i].getNeuronCount() ; j++){
-                weights[i+j] = myANN.getLayers()[i].neurons[j].getInputWeights();
-            }
-        }
-        return weights;
-    }
+    
 
 }
