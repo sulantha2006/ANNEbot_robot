@@ -16,6 +16,7 @@ public class ANN {
     private int outputNeuronCount = 0;
     private int hiddenLNeuronCount = 0;
     private boolean hasAHiddenLayer = false;
+    private double fitness = 0;
     private NeuronLayer [] layers ;
     
 
@@ -88,6 +89,14 @@ public class ANN {
 
     public void setOutputNeuronCount(int outputNeuronCount) {
         this.outputNeuronCount = outputNeuronCount;
+    }
+
+    public double getFitness() {
+        return fitness;
+    }
+
+    public void setFitness(double fitness) {
+        this.fitness = fitness;
     }
 
 
