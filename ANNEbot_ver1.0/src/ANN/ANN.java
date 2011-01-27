@@ -21,10 +21,10 @@ public class ANN {
     private NeuronLayer [] layers ;
     
 
-    ANN(int numInputNeurons , int numOutputNeurons, boolean hasHL,int hLCount){
+    ANN(int numInputNeurons , int hLCount, int numOutputNeurons){
         this.inputNeuronCount = numInputNeurons ;
         this.outputNeuronCount = numOutputNeurons ;
-        this.hasAHiddenLayer = hasHL;
+        this.hasAHiddenLayer = true;
         this.hiddenLNeuronCount = hLCount;
         this.initANN();
     }
@@ -72,12 +72,16 @@ public class ANN {
     }
 
     public void setWeights(Matrix newWeights){
+        System.out.println("New Weights set after evolution");
         for(int i = 0 ; i < this.getLayers().length ; i++){
             for(int j = 0 ; j < this.getLayers()[i].getNeuronCount() ; j++){
                 Matrix weights = new Matrix(1,this.getLayers()[i].getNeurons()[j].getInputWeights().getNumOfCols());
                 for(int k = 0; j < this.getLayers()[i].getNeurons()[j].getInputWeights().getNumOfCols(); k++ ){
                     weights.set(0, k, newWeights.get(0, i+j+k));
                 }
+                System.out.println("Weights of Layer"+i+"Neuron"+j);
+                weights.printMatrix();
+                System.out.println("");
             }
         }
     }
