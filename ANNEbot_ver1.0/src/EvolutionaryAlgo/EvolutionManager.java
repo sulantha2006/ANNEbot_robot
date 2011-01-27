@@ -39,9 +39,10 @@ public class EvolutionManager {
     public ANN evolveANN(ANN oldANN, int popCount){
         if(DEBUG == 1){
             System.out.println("Evolve comm recieved. Population Count : " + popCount);
+            System.out.println("Its fitness : " + oldANN.getFitness());
         }
         if (popCount == 0){
-            createInitialPopulation(oldANN.getWeights().getNumOfCols());
+            createInitialPopulation(oldANN.getWeights().getNumOfCols()+1);
             Matrix newWeights = oldPopulation.get(genomeIndex).weightMatrix;
             double newFitness = oldPopulation.get(genomeIndex).fitnessValue;
             oldANN.setWeights(newWeights);
@@ -49,16 +50,16 @@ public class EvolutionManager {
             genomeIndex++;
 
         }else{
+            Matrix oldWeights = oldANN.getWeights();
+            double oldFitness = oldANN.getFitness();
+            Genome genomeFromOldData = createGenome(oldWeights, oldFitness);
+            newPopulation.add(genomeFromOldData);
             if (newPopulation.size() == populationSize){
                 oldPopulation = genAlgo.getNewPopulation(newPopulation);
                 newPopulation = new ArrayList<Genome>();
                 genomeIndex = 0;
                 genCount++;
             }
-            Matrix oldWeights = oldANN.getWeights();
-            double oldFitness = oldANN.getFitness();
-            Genome genomeFromOldData = createGenome(oldWeights, oldFitness);
-            newPopulation.add(genomeFromOldData);
             Matrix newWeights = oldPopulation.get(genomeIndex).weightMatrix;
             double newFitness = oldPopulation.get(genomeIndex).fitnessValue;
             oldANN.setWeights(newWeights);
@@ -67,7 +68,7 @@ public class EvolutionManager {
 
         }
         if(DEBUG == 1){
-            System.out.println("newPopulation var " + popCount);
+            System.out.println("newPopulation size " + oldPopulation.size());
         }
         return oldANN;
     }
