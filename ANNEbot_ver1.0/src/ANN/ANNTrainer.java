@@ -22,12 +22,14 @@ public class ANNTrainer {
     
     public void train(){
         for(;;){
-            //eMan.
-            genCount++;
-        }
-        
+            ANN temp = eMan.evolveANN(this.ann, this.genCount);
+            ann = temp;
+
+            this.genCount++;
+        }    
     }
 
+    
 
    
     
