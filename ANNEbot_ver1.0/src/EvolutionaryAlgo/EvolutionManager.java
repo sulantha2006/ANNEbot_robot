@@ -7,6 +7,7 @@ package EvolutionaryAlgo;
 import Utility.*;
 import ANN.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -18,36 +19,62 @@ public class EvolutionManager {
     ArrayList<Genome> oldPopulation = new ArrayList<Genome>();
     ArrayList<Genome> newPopulation = new ArrayList<Genome>();
 
+    GeneticAlgorithm genAlgo = new GeneticAlgorithm();
+    int genCount;
+
+    public int getGenCount() {
+        return genCount;
+    }
+
+    
+
 
     Genome createGenome(Matrix weights, double fitness){
         return new Genome(weights, fitness);
     }
 
-    public ANN evolveANN(ANN oldANN, int genCount){
-        if (genCount == 0){
-            createInitialPopulation();
+    public ANN evolveANN(ANN oldANN, int popCount){
+        if (popCount == 0){
+            createInitialPopulation(oldANN.getWeights().getNumOfCols());
             Matrix newWeights = oldPopulation.get(genomeIndex).weightMatrix;
             double newFitness = oldPopulation.get(genomeIndex).fitnessValue;
-            //oldANN.setWeights(newWeights);
-            //oldANN.setFitness(newFitness);
+            oldANN.setWeights(newWeights);
+            oldANN.setFitness(newFitness);
+            genomeIndex++;
 
         }else{
-            //Matrix oldWeights = oldANN.getWeights();
-            //double oldFitness = oldANN.getFitness();
-            //genomeFromOldData = createGenome(oldWeights, oldFitness);
-            //newPopulation.set(genomeIndex, genomeFromOldData);
+            if (newPopulation.size() == populationSize){
+                oldPopulation = genAlgo.getNewPopulation(newPopulation);
+                newPopulation = new ArrayList<Genome>();
+                genomeIndex = 0;
+                genCount++;
+            }
+            Matrix oldWeights = oldANN.getWeights();
+            double oldFitness = oldANN.getFitness();
+            Genome genomeFromOldData = createGenome(oldWeights, oldFitness);
+            newPopulation.add(genomeFromOldData);
+            Matrix newWeights = oldPopulation.get(genomeIndex).weightMatrix;
+            double newFitness = oldPopulation.get(genomeIndex).fitnessValue;
+            oldANN.setWeights(newWeights);
+            oldANN.setFitness(newFitness);
+            genomeIndex++;
 
         }
-        return returnANN;
-    }
-
-    ANN getANNFromGenome(Genome genome){
-        return new ANN;
+        return oldANN;
     }
 
 
-    private void createInitialPopulation() {
-        throw new UnsupportedOperationException("Not yet implemented");
+    private void createInitialPopulation(int matrixSize) {
+        for(int i = 0; i<populationSize;i++){
+            Random rand = new Random();
+            Matrix weightMatrix = new Matrix(1, matrixSize);
+            for (int j = 0; j < matrixSize ; j++){
+                double initWeights = rand.nextDouble();
+                weightMatrix.set(0, j, initWeights);
+                
+            }
+            oldPopulation.add(new Genome(weightMatrix));
+        }
     }
 
 
