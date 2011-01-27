@@ -30,7 +30,7 @@ public class ANNTrainer {
         }    
     }
 
-    private setFitness(ANN myANN){
+    private void setFitness(ANN myANN){
         if(this.genCount<10){
             myANN.setFitness(Math.random()%10);
         }
