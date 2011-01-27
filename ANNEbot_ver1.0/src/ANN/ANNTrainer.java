@@ -15,18 +15,20 @@ import java.util.Random;
 public class ANNTrainer {
     ANN ann;
     EvolutionManager eMan = new EvolutionManager();
+    int popCount = 0;
     int genCount = 0;
 
-    public ANNTrainer(ANN myAnn) {
-        this.ann = myAnn;
+    public ANNTrainer(int numInputNeurons , int hLCount, int numOutputNeurons) {
+        this.ann = new ANN(numInputNeurons , hLCount, numOutputNeurons);
     }
     
     public void train(){
         for(;;){
-            ANN temp = eMan.evolveANN(this.ann, this.genCount);
+            ANN temp = eMan.evolveANN(this.ann, this.popCount);
+            this.genCount = eMan.getGenCount();
             this.setFitness(temp);
             ann = temp;
-            this.genCount++;
+            this.popCount++;
         }    
     }
 
@@ -34,7 +36,7 @@ public class ANNTrainer {
         if(this.genCount<10)
             myANN.setFitness(Math.random()%10);
         
-        else if(this.genCount <= 10 && this.genCount < 20)        
+        else if(this.genCount <= 10 && this.genCount < 20)
             myANN.setFitness(10+Math.random()%10);
         
         else if(this.genCount <= 20 && this.genCount < 30)
