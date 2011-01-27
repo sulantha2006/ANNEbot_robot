@@ -5,6 +5,7 @@
 
 package ANN;
 
+import EvolutionaryAlgo.GeneticAlgorithm;
 import Utility.Matrix;
 
 /**
@@ -14,9 +15,21 @@ import Utility.Matrix;
 public class ANNTrainer {
     ANN ann;
 
+    int genCount = 0;
+
     public ANNTrainer(ANN myAnn) {
         this.ann = myAnn;
     }
+    
+    public void train(){
+        for(;;){
+            
+            genCount++;
+        }
+        
+    }
+
+
    
     
 
