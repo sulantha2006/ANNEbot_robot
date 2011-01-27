@@ -59,8 +59,9 @@ public class ANN {
         for(int i = 0 ; i < this.getLayers().length ; i++){
             for(int j = 0 ; j < this.getLayers()[i].getNeuronCount() ; j++){
                 //weights[i+j] = myANN.getLayers()[i].getNeurons()[j].getInputWeights();
-                for(int k = 0; j < this.getLayers()[i].getNeurons()[j].getInputWeights().getNumOfCols(); k++ ){
+                for(int k = 0; k < this.getLayers()[i].getNeurons()[j].getInputWeights().getNumOfCols(); k++ ){
                     temp.add(this.getLayers()[i].getNeurons()[j].getInputWeights().get(0, k));
+                    //this.getLayers()[i].getNeurons()[j].getInputWeights().printMatrix();
                 }
             }
         }
@@ -76,7 +77,7 @@ public class ANN {
         for(int i = 0 ; i < this.getLayers().length ; i++){
             for(int j = 0 ; j < this.getLayers()[i].getNeuronCount() ; j++){
                 Matrix weights = new Matrix(1,this.getLayers()[i].getNeurons()[j].getInputWeights().getNumOfCols());
-                for(int k = 0; j < this.getLayers()[i].getNeurons()[j].getInputWeights().getNumOfCols(); k++ ){
+                for(int k = 0; k < this.getLayers()[i].getNeurons()[j].getInputWeights().getNumOfCols(); k++ ){
                     weights.set(0, k, newWeights.get(0, i+j+k));
                 }
                 System.out.println("Weights of Layer"+i+"Neuron"+j);

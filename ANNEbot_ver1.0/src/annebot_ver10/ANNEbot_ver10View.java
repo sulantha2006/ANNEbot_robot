@@ -255,8 +255,8 @@ public class ANNEbot_ver10View extends FrameView {
 
     @Action
     public void start() {
-        //ANNTrainer myTrainer = new ANNTrainer(Integer.parseInt(this.jTextField1.getText()),Integer.parseInt(this.jTextField2.getText()),Integer.parseInt(this.jTextField3.getText()));
-        //myTrainer.train();
+        ANNTrainer myTrainer = new ANNTrainer(Integer.parseInt(this.jTextField1.getText()),Integer.parseInt(this.jTextField2.getText()),Integer.parseInt(this.jTextField3.getText()));
+        myTrainer.train();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

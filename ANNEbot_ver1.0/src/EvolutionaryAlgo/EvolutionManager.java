@@ -14,6 +14,9 @@ import java.util.Random;
  * @author sulantha
  */
 public class EvolutionManager {
+
+    int DEBUG = 1;
+    
     int populationSize = 10;
     int genomeIndex = 0;
     ArrayList<Genome> oldPopulation = new ArrayList<Genome>();
@@ -34,6 +37,9 @@ public class EvolutionManager {
     }
 
     public ANN evolveANN(ANN oldANN, int popCount){
+        if(DEBUG == 1){
+            System.out.println("Evolve comm recieved. Population Count : " + popCount);
+        }
         if (popCount == 0){
             createInitialPopulation(oldANN.getWeights().getNumOfCols());
             Matrix newWeights = oldPopulation.get(genomeIndex).weightMatrix;
@@ -59,6 +65,9 @@ public class EvolutionManager {
             oldANN.setFitness(newFitness);
             genomeIndex++;
 
+        }
+        if(DEBUG == 1){
+            System.out.println("newPopulation var " + popCount);
         }
         return oldANN;
     }
