@@ -6,6 +6,7 @@
 package ANN;
 
 import Utility.*;
+import java.util.ArrayList;
 
 /**
  *
@@ -50,6 +51,39 @@ public class ANN {
         }
 
     }
+
+    public Matrix getWeights(){
+        ArrayList<Double> temp = new ArrayList<Double>();
+        //Matrix[] weights= new Matrix[myANN.getInputNeuronCount()+myANN.getHiddenLNeuronCount()+myANN.getOutputNeuronCount()];
+        //double weights[] = new double[myANN.getInputNeuronCount()+myANN.getHiddenLNeuronCount()+myANN.getOutputNeuronCount()];
+        for(int i = 0 ; i < this.getLayers().length ; i++){
+            for(int j = 0 ; j < this.getLayers()[i].getNeuronCount() ; j++){
+                //weights[i+j] = myANN.getLayers()[i].getNeurons()[j].getInputWeights();
+                for(int k = 0; j < this.getLayers()[i].getNeurons()[j].getInputWeights().getNumOfCols(); k++ ){
+                    temp.add(this.getLayers()[i].getNeurons()[j].getInputWeights().get(0, k));
+                }
+            }
+        }
+        Matrix weights = new Matrix(1,temp.size());
+        for (int l = 0; l < temp.size(); l++){
+            weights.set(0, l, temp.get(l));
+        }
+        return weights;
+    }
+
+    public void setWeights(Matrix newWeights){
+        for(int i = 0 ; i < this.getLayers().length ; i++){
+            for(int j = 0 ; j < this.getLayers()[i].getNeuronCount() ; j++){
+                Matrix weights = new Matrix(1,this.getLayers()[i].getNeurons()[j].getInputWeights().getNumOfCols());
+                for(int k = 0; j < this.getLayers()[i].getNeurons()[j].getInputWeights().getNumOfCols(); k++ ){
+                    weights.set(0, k, newWeights.get(0, i+j+k));
+                }
+            }
+        }
+    }
+
+
+
 
     public boolean isHasAHiddenLayer() {
         return hasAHiddenLayer;
@@ -98,6 +132,8 @@ public class ANN {
     public void setFitness(double fitness) {
         this.fitness = fitness;
     }
+
+
 
 
 

@@ -6,6 +6,7 @@
 package ANN;
 
 import EvolutionaryAlgo.EvolutionManager;
+import java.util.Random;
 
 /**
  *
@@ -23,15 +24,29 @@ public class ANNTrainer {
     public void train(){
         for(;;){
             ANN temp = eMan.evolveANN(this.ann, this.genCount);
+            this.setFitness(temp);
             ann = temp;
-
             this.genCount++;
         }    
     }
+
+    private void setFitness(ANN myANN){
+        if(this.genCount<10)
+            myANN.setFitness(Math.random()%10);
+        
+        else if(this.genCount <= 10 && this.genCount < 20)        
+            myANN.setFitness(10+Math.random()%10);
+        
+        else if(this.genCount <= 20 && this.genCount < 30)
+            myANN.setFitness(20+Math.random()%10);
+
+        else
+            myANN.setFitness(30+Math.random()%10);
+    }
+ }
 
     
 
    
     
 
-}
