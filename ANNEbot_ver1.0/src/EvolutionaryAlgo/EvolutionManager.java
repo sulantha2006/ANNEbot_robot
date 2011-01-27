@@ -12,10 +12,14 @@ import ANN.*;
  * @author sulantha
  */
 public class EvolutionManager {
+    int fixedPopulation
+
+    ANN evolveANN(ANN oldANN){
+        return oldANN;
+    }
 
 
-
-    Matrix[] getWeights(ANN myANN){
+    public Matrix[] getWeights(ANN myANN){
         Matrix[] weights= new Matrix[myANN.getInputNeuronCount()+myANN.getHiddenLNeuronCount()+myANN.getOutputNeuronCount()];
         for(int i = 0 ; i < myANN.getLayers().length ; i++){
             for(int j = 0 ; j < myANN.getLayers()[i].getNeuronCount() ; j++){
