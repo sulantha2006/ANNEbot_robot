@@ -5,8 +5,7 @@
 
 package ANN;
 
-import EvolutionaryAlgo.GeneticAlgorithm;
-import Utility.Matrix;
+import EvolutionaryAlgo.EvolutionManager;
 
 /**
  *
@@ -14,7 +13,7 @@ import Utility.Matrix;
  */
 public class ANNTrainer {
     ANN ann;
-
+    EvolutionManager eMan = new EvolutionManager();
     int genCount = 0;
 
     public ANNTrainer(ANN myAnn) {
@@ -23,7 +22,7 @@ public class ANNTrainer {
     
     public void train(){
         for(;;){
-            
+            //eMan.
             genCount++;
         }
         
