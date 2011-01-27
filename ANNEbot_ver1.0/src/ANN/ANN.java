@@ -54,14 +54,10 @@ public class ANN {
 
     public Matrix getWeights(){
         ArrayList<Double> temp = new ArrayList<Double>();
-        //Matrix[] weights= new Matrix[myANN.getInputNeuronCount()+myANN.getHiddenLNeuronCount()+myANN.getOutputNeuronCount()];
-        //double weights[] = new double[myANN.getInputNeuronCount()+myANN.getHiddenLNeuronCount()+myANN.getOutputNeuronCount()];
         for(int i = 0 ; i < this.getLayers().length ; i++){
-            for(int j = 0 ; j < this.getLayers()[i].getNeuronCount() ; j++){
-                //weights[i+j] = myANN.getLayers()[i].getNeurons()[j].getInputWeights();
+            for(int j = 0 ; j < this.getLayers()[i].getNeuronCount() ; j++){                
                 for(int k = 0; k < this.getLayers()[i].getNeurons()[j].getInputWeights().getNumOfCols(); k++ ){
-                    temp.add(this.getLayers()[i].getNeurons()[j].getInputWeights().get(0, k));
-                    //this.getLayers()[i].getNeurons()[j].getInputWeights().printMatrix();
+                    temp.add(this.getLayers()[i].getNeurons()[j].getInputWeights().get(0, k));                    
                 }
             }
         }
@@ -73,22 +69,18 @@ public class ANN {
     }
 
     public void setWeights(Matrix newWeights){
-        System.out.println("New Weights set after evolution");
+        System.out.println("\nNew Weights set after evolution");
         for(int i = 0 ; i < this.getLayers().length ; i++){
             for(int j = 0 ; j < this.getLayers()[i].getNeuronCount() ; j++){
                 Matrix weights = new Matrix(1,this.getLayers()[i].getNeurons()[j].getInputWeights().getNumOfCols());
                 for(int k = 0; k < this.getLayers()[i].getNeurons()[j].getInputWeights().getNumOfCols(); k++ ){
                     weights.set(0, k, newWeights.get(0, i+j+k));
                 }
-                System.out.println("Weights of Layer"+i+"Neuron"+j);
+                System.out.println("Weights of Layer "+i+" Neuron "+j);
                 weights.printMatrix();
-                System.out.println("");
             }
         }
     }
-
-
-
 
     public boolean isHasAHiddenLayer() {
         return hasAHiddenLayer;
@@ -137,12 +129,5 @@ public class ANN {
     public void setFitness(double fitness) {
         this.fitness = fitness;
     }
-
-
-
-
-
-
-
 }
 
