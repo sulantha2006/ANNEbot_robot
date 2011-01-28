@@ -34,16 +34,16 @@ public class ANNTrainer {
 
     private void setFitness(ANN myANN){
         if(this.genCount<10)
-            myANN.setFitness(Math.random()%10);
+            myANN.setFitness((Math.random()*100)%10);
         
         else if(this.genCount <= 10 && this.genCount < 20)
-            myANN.setFitness(10+Math.random()%10);
+            myANN.setFitness(10+(Math.random()*100)%10);
         
         else if(this.genCount <= 20 && this.genCount < 30)
-            myANN.setFitness(20+Math.random()%10);
+            myANN.setFitness(20+(Math.random()*100)%10);
 
         else
-            myANN.setFitness(30+Math.random()%10);
+            myANN.setFitness(30+(Math.random()*100)%10);
     }
  }
 
