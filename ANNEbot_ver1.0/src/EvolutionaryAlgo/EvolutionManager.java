@@ -52,13 +52,33 @@ public class EvolutionManager {
         }else{
             Matrix oldWeights = oldANN.getWeights();
             double oldFitness = oldANN.getFitness();
+            if(DEBUG == 1){
+                    System.out.println("Data for new Genome : ");
+                    oldWeights.printMatrix();
+            }
             Genome genomeFromOldData = createGenome(oldWeights, oldFitness);
+            if(DEBUG == 1){
+                    System.out.println("New Genome created from old data and new fitness : ");
+                    genomeFromOldData.printGenome();
+            }
             newPopulation.add(genomeFromOldData);
             if (newPopulation.size() == populationSize){
+                if(DEBUG == 1){
+                    System.out.println("Evolution Happening ");
+                }
                 oldPopulation = genAlgo.getNewPopulation(newPopulation);
                 newPopulation = new ArrayList<Genome>();
+                if(DEBUG == 1){
+                    System.out.println("newPopulation Sizex : " + newPopulation.size());
+                }
                 genomeIndex = 0;
                 genCount++;
+                if(DEBUG == 1){
+                    System.out.println("Size of old Population :  " + oldPopulation.size());
+                }
+            }
+            if(DEBUG == 1){
+                    System.out.println("GenomeIndex count :  " + genomeIndex);
             }
             Matrix newWeights = oldPopulation.get(genomeIndex).weightMatrix;
             double newFitness = oldPopulation.get(genomeIndex).fitnessValue;

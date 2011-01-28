@@ -14,6 +14,9 @@ import java.util.Collections;
  * @author sulantha
  */
 public class GeneticAlgorithm {
+
+    int DEBUG = 1;
+
     ArrayList<Genome> genomePopulation = new ArrayList<Genome>();
     int sizeOfPopulation = genomePopulation.size();
     int genomeLength;
@@ -90,6 +93,12 @@ public class GeneticAlgorithm {
     ArrayList<Genome> getNewPopulation(ArrayList<Genome> oldPopulation){
         ArrayList<Genome> newPopulation = new ArrayList<Genome>();
         genomePopulation = oldPopulation;
+        if (DEBUG == 1){
+            System.out.println("Genome Population print (Before sort) ...");
+            for (int i = 0; i < genomePopulation.size();i++){
+                genomePopulation.get(i).printGenome();
+            }
+        }
         Collections.sort(genomePopulation); //Check this
         newPopulation = copyNBestFittedGenomesToNewPopulation(numberOfEliteGenomesToCopy, numberOfCopiesPerGenome, newPopulation);
         while (newPopulation.size()<genomePopulation.size()){
