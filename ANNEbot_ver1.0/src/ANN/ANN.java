@@ -72,12 +72,11 @@ public class ANN {
         System.out.println("\nNew Weights set after evolution");
         for(int i = 0 ; i < this.getLayers().length ; i++){
             for(int j = 0 ; j < this.getLayers()[i].getNeuronCount() ; j++){
-                Matrix weights = new Matrix(1,this.getLayers()[i].getNeurons()[j].getInputWeights().getNumOfCols());
                 for(int k = 0; k < this.getLayers()[i].getNeurons()[j].getInputWeights().getNumOfCols(); k++ ){
-                    weights.set(0, k, newWeights.get(0, i+j+k));
+                    this.getLayers()[i].getNeurons()[j].getInputWeights().set(0, k, newWeights.get(0, i+j+k));
                 }
                 System.out.println("Weights of Layer "+i+" Neuron "+j);
-                weights.printMatrix();
+                this.getWeights().printMatrix();
             }
         }
     }

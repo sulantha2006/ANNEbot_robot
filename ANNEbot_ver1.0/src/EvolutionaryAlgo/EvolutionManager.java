@@ -54,7 +54,8 @@ public class EvolutionManager {
             double oldFitness = oldANN.getFitness();
             if(DEBUG == 1){
                     System.out.println("Data for new Genome : ");
-                    oldWeights.printMatrix();
+                    //oldWeights.printMatrix();
+                    oldANN.getWeights().printMatrix();
             }
             Genome genomeFromOldData = createGenome(oldWeights, oldFitness);
             if(DEBUG == 1){

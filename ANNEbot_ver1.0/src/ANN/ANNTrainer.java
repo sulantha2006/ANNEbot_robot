@@ -17,6 +17,7 @@ public class ANNTrainer {
     EvolutionManager eMan = new EvolutionManager();
     int popCount = 0;
     int genCount = 0;
+    ANN temp;
 
     public ANNTrainer(int numInputNeurons , int hLCount, int numOutputNeurons) {
         this.ann = new ANN(numInputNeurons , hLCount, numOutputNeurons);
@@ -24,7 +25,10 @@ public class ANNTrainer {
     
     public void train(){
         for(;;){
-            ANN temp = eMan.evolveANN(this.ann, this.popCount);
+            System.out.println("Begining of method train()");
+            this.ann.getWeights().printMatrix();
+            System.out.println("passed to eman");
+            temp = eMan.evolveANN(this.ann, this.popCount);
             this.genCount = eMan.getGenCount();
             this.setFitness(temp);
             ann = temp;
