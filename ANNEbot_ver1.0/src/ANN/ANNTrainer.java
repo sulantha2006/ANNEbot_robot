@@ -13,6 +13,9 @@ import java.util.Random;
  * @author dilmi
  */
 public class ANNTrainer {
+
+    int DEBUG = 0;
+
     ANN ann;
     EvolutionManager eMan = new EvolutionManager();
     int popCount = 0;
@@ -25,10 +28,20 @@ public class ANNTrainer {
     
     public void train(){
         for(;;){
-            System.out.println("Begining of method train()");
-            this.ann.getWeights().printMatrix();
-            System.out.println("passed to eman");
+            if(DEBUG == 1){
+                System.out.println("Begining of method train()");
+                this.ann.getWeights().printMatrix();
+                System.out.println("passed to eman");
+            }
+            
             temp = eMan.evolveANN(this.ann, this.popCount);
+
+            if(DEBUG == 1){
+                System.out.println("Got from EvoMan to train() method");
+                temp.getWeights().printMatrix();
+                System.out.println("---------------");
+            }
+
             this.genCount = eMan.getGenCount();
             this.setFitness(temp);
             ann = temp;

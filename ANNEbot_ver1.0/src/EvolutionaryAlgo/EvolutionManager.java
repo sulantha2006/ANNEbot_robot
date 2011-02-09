@@ -15,7 +15,7 @@ import java.util.Random;
  */
 public class EvolutionManager {
 
-    int DEBUG = 1;
+    int DEBUG = 2;
     
     int populationSize = 10;
     int genomeIndex = 0;
@@ -45,7 +45,19 @@ public class EvolutionManager {
             createInitialPopulation(oldANN.getWeights().getNumOfCols()+1);
             Matrix newWeights = oldPopulation.get(genomeIndex).weightMatrix;
             double newFitness = oldPopulation.get(genomeIndex).fitnessValue;
+
+            if(DEBUG == 1){
+                System.out.println("Before setting to new ANN");
+                newWeights.printMatrix();
+            }
+
             oldANN.setWeights(newWeights);
+
+            if(DEBUG == 1){
+                System.out.println("After setting to new ANN");
+                oldANN.getWeights().printMatrix();
+            }
+
             oldANN.setFitness(newFitness);
             genomeIndex++;
 
@@ -74,13 +86,21 @@ public class EvolutionManager {
                 }
                 genomeIndex = 0;
                 genCount++;
-                if(DEBUG == 1){
+                if(DEBUG == 2){
                     System.out.println("Size of old Population :  " + oldPopulation.size());
+                    System.out.println("Generation Count : " + genCount);
+                    System.out.println("Population recieved from Evolution : ");
+                    for(int g = 0; g < oldPopulation.size(); g++){
+                        oldPopulation.get(g).weightMatrix.printMatrix();
+                        //System.out.println(oldPopulation.get(g).toString());
+                    }
+                    System.out.println("END Print........");
                 }
             }
             if(DEBUG == 1){
                     System.out.println("GenomeIndex count :  " + genomeIndex);
             }
+            
             Matrix newWeights = oldPopulation.get(genomeIndex).weightMatrix;
             double newFitness = oldPopulation.get(genomeIndex).fitnessValue;
             oldANN.setWeights(newWeights);

@@ -13,6 +13,9 @@ import java.util.ArrayList;
  * @author Dilmi
  */
 public class ANN {
+
+    int DEBUG = 0;
+
     private int inputNeuronCount = 0;
     private int outputNeuronCount = 0;
     private int hiddenLNeuronCount = 0;
@@ -69,14 +72,24 @@ public class ANN {
     }
 
     public void setWeights(Matrix newWeights){
-        System.out.println("\nNew Weights set after evolution");
+        if(DEBUG == 1){
+            System.out.println("\nNew Weights set after evolution");
+        }
+        
+        int count = 0;
+
         for(int i = 0 ; i < this.getLayers().length ; i++){
             for(int j = 0 ; j < this.getLayers()[i].getNeuronCount() ; j++){
                 for(int k = 0; k < this.getLayers()[i].getNeurons()[j].getInputWeights().getNumOfCols(); k++ ){
-                    this.getLayers()[i].getNeurons()[j].getInputWeights().set(0, k, newWeights.get(0, i+j+k));
+                    this.getLayers()[i].getNeurons()[j].getInputWeights().set(0, k, newWeights.get(0, count));
+                    count++;
                 }
-                System.out.println("Weights of Layer "+i+" Neuron "+j);
-                this.getWeights().printMatrix();
+
+                if(DEBUG == 1){
+                    System.out.println("Weights of Layer "+i+" Neuron "+j);
+                    this.getWeights().printMatrix();
+                }
+                
             }
         }
     }
