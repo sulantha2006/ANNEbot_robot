@@ -24,7 +24,7 @@ public class ANN {
     private NeuronLayer [] layers ;
     
 
-    ANN(int numInputNeurons , int hLCount, int numOutputNeurons){
+    public ANN(int numInputNeurons , int hLCount, int numOutputNeurons){
         this.inputNeuronCount = numInputNeurons ;
         this.outputNeuronCount = numOutputNeurons ;
         this.hasAHiddenLayer = true;
@@ -32,7 +32,7 @@ public class ANN {
         this.initANN();
     }
 
-    ANN(int numInputNeurons , int numOutputNeurons){
+    public ANN(int numInputNeurons , int numOutputNeurons){
         this.inputNeuronCount = numInputNeurons ;
         this.outputNeuronCount = numOutputNeurons ;
         this.initANN();
