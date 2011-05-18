@@ -4,6 +4,7 @@
  */
 
 package ANNEvolver;
+import Utility.Matrix;
 import org.jgap.FitnessFunction;
 import org.jgap.IChromosome;
 
@@ -15,7 +16,9 @@ public class TestFitnessFunction extends FitnessFunction{
     @Override
     protected double evaluate(IChromosome ic) {
         double fitness = 0;
-        ic.getGene(0).getEnergy();
+        Matrix weightMatrix;
+        //  = Utility.getWeightsFromChromosome(ic);
+
         return fitness;
     }
     
