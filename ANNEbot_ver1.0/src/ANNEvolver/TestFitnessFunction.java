@@ -15,7 +15,7 @@ public class TestFitnessFunction extends FitnessFunction{
     @Override
     protected double evaluate(IChromosome ic) {
         double fitness = 0;
-
+        ic.getGene(0).getEnergy();
         return fitness;
     }
     

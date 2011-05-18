@@ -278,6 +278,7 @@ public class ANNEbot_ver10View extends FrameView {
         ANNTrainer myTrainer = new ANNTrainer(Integer.parseInt(this.jTextField1.getText()),Integer.parseInt(this.jTextField2.getText()),Integer.parseInt(this.jTextField3.getText()));
         try {
             myTrainer.train();
+
         } catch (Exception ex) {
             Logger.getLogger(ANNEbot_ver10View.class.getName()).log(Level.SEVERE, null, ex);
         }
