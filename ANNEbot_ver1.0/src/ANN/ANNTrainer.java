@@ -5,6 +5,7 @@
 
 package ANN;
 
+import ANNEvolver.TestFitnessFunction;
 import EvolutionaryAlgo.EvolutionManager;
 import java.util.Random;
 import org.jgap.Chromosome;

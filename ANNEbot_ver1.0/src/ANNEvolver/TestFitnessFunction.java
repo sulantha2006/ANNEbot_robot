@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package ANN;
+package ANNEvolver;
 import org.jgap.FitnessFunction;
 import org.jgap.IChromosome;
 
@@ -14,7 +14,8 @@ import org.jgap.IChromosome;
 public class TestFitnessFunction extends FitnessFunction{
     @Override
     protected double evaluate(IChromosome ic) {
-        double fitness = 100;
+        double fitness = 0;
+
         return fitness;
     }
     
