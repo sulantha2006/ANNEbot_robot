@@ -14,8 +14,8 @@ import ANN.ANN;
 public class Evolver {
     private ANN ann;
 
-    public void initialize(int numInputNeurons , int hLCount, int numOutputNeurons){
-        this.ann = new ANN(numInputNeurons,hLCount,numOutputNeurons);
+    public void initialize(int numInputNeurons , int hNCount, int numOutputNeurons){
+        this.ann = new ANN(numInputNeurons,hNCount,numOutputNeurons);
     }
 
     public ANN getAnn() {
