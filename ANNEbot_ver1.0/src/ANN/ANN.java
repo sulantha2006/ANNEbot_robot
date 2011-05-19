@@ -94,6 +94,10 @@ public class ANN {
         }
     }
 
+    public void getOutput(double[]input){
+
+    }
+
     public boolean isHasAHiddenLayer() {
         return hasAHiddenLayer;
     }
