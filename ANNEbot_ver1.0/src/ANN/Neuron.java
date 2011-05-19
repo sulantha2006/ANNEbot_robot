@@ -12,20 +12,14 @@ import Utility.*;
  * @author dilmi
  */
 public class Neuron {
-    private Matrix inputWeights;
-    private double activation = 0;
+        private double activation = 0;
     private double threshold = 10000;
-    private boolean isInputNeuron = false;
+    private String NeuronType;
 
-    
-    Neuron(int numOfweights, boolean cIsInputNeuron){
-        this.inputWeights = new Matrix(1, numOfweights);
-        this.isInputNeuron = cIsInputNeuron;
-        if(this.isInputNeuron){
 
-        }
+    Neuron(String type){
+        this.NeuronType = type;
     }
-
 
     public double getActivation() {
         return activation;
@@ -35,12 +29,12 @@ public class Neuron {
         this.activation = activation;
     }
 
-    public Matrix getInputWeights() {
-        return inputWeights;
+    public String getNeuronType() {
+        return NeuronType;
     }
 
-    public void setInputWeights(Matrix inputWeights) {
-        this.inputWeights = inputWeights;
+    public void setNeuronType(String NeuronType) {
+        this.NeuronType = NeuronType;
     }
 
     public double getThreshold() {
@@ -50,16 +44,6 @@ public class Neuron {
     public void setThreshold(double threshold) {
         this.threshold = threshold;
     }
-
-    public boolean isIsInputLayer() {
-        return isInputNeuron;
-    }
-
-    public void setIsInputLayer(boolean isInputLayer) {
-        this.isInputNeuron = isInputLayer;
-    }
-
-    
 
 
 

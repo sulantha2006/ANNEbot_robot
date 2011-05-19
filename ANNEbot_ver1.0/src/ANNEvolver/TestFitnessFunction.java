@@ -5,6 +5,7 @@
 
 package ANNEvolver;
 import ANN.ANN;
+import Utility.ANNConfiguration;
 import Utility.Matrix;
 import org.jgap.FitnessFunction;
 import org.jgap.IChromosome;
@@ -19,13 +20,15 @@ public class TestFitnessFunction extends FitnessFunction{
         double fitness = 0;
         Matrix weightMatrix = EvolverUtility.getWeightsFromChromosome(ic);
         double[][]input = this.getInput("/home/dilmi/Desktop/Iris data set.txt");
-        //ANN ann = ;
-        //ann.getOutput();
-
-        
+        double[] output;
+        ANN ann = new ANN(ANNConfiguration.inputNeuronCount, ANNConfiguration.hiddenLNeuronCount, ANNConfiguration.outputNeuronCount);
+        ann.setWeights(weightMatrix);
+        for(int i = 0 ; i < input.length ; i++){
+            output = this.processInput(input[i], ann);
+            fitness = fitness + this.getFitness(output, input[i][4]);
+        }
         return fitness;
     }
-
 
     double[][] getInput(String filePath){
         String [][]stringInput = Utility.DataSetReader.readDataSet(filePath, 5 , "," );
@@ -43,6 +46,20 @@ public class TestFitnessFunction extends FitnessFunction{
             }
         }
         return doubleInput;
+    }
+
+    public double[] processInput(double []input, ANN ann){
+        double output [] = new double [ann.getOutputNeuronCount()] ;
+
+
+        return output;
+
+    }
+
+    public double getFitness(double output[], double irisType){
+        double fitness = 0;
+
+        return fitness;
     }
 
 
