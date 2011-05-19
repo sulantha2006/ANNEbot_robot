@@ -12,7 +12,7 @@ import org.jgap.IChromosome;
  *
  * @author sulantha
  */
-public class Utility {
+public class EvolverUtility {
     public static Matrix getWeightsFromChromosome(IChromosome ic){
         Matrix weightMatrix = new Matrix(1, ic.size());
         for (int l = 0; l < ic.size(); l++){
