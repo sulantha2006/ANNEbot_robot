@@ -50,8 +50,8 @@ public class Evolver {
 
         //Initilization of the connection Matrix
         initConnectionMatrix();
-        Matrix connections = new Matrix(BinaryUtil.boolean2binary(ann.getConnections()));
-        connections.printMatrix();
+        //Matrix connections = new Matrix(BinaryUtil.boolean2binary(ann.getConnections()));
+        //connections.printMatrix();
         //Get Chromosome Length
         getChromosomeLength();
         //JGAP
