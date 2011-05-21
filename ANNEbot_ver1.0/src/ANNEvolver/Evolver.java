@@ -6,6 +6,8 @@
 package ANNEvolver;
 
 import ANN.ANN;
+import Utility.BinaryUtil;
+import Utility.Matrix;
 import org.jgap.Chromosome;
 import org.jgap.FitnessFunction;
 import org.jgap.Configuration;
@@ -24,12 +26,32 @@ public class Evolver {
     int DEBUG = 0;
 
     private ANN ann;
+    private int noOfInputNs;
+    private int noOfHiddenNs;
+    private int noOfOutputNs;
+    private int totalNs;
+    int chromosomeLength = 0;
 
     public void initialize(int numInputNeurons , int hNCount, int numOutputNeurons){
         this.ann = new ANN(numInputNeurons,hNCount,numOutputNeurons);
+        noOfInputNs = numInputNeurons;
+        noOfHiddenNs = hNCount;
+        noOfOutputNs = numOutputNeurons;
+        totalNs = noOfInputNs + noOfHiddenNs + noOfOutputNs;
     }
 
+
+
     public void train() throws Exception{
+
+        //Initilization of the connection Matrix
+        initConnectionMatrix();
+        Matrix connections = new Matrix(BinaryUtil.boolean2binary(ann.getConnections()));
+        connections.printMatrix();
+        //Get Chromosome Length
+        getChromosomeLength();
+
+        //JGAP
         Configuration conf = new DefaultConfiguration();
         FitnessFunction testFunc = new TestFitnessFunction();
         conf.setFitnessFunction(testFunc);
@@ -70,6 +92,24 @@ public class Evolver {
             for(int i = 0; i <bestSolutionSoFar.getGenes().length;i++){
                 System.out.println(bestSolutionSoFar.getGene(i)+" ");
             }
+        }
+    }
+
+    private void initConnectionMatrix() {
+        for(int i = 0; i < noOfInputNs; i++){
+            for(int j = noOfInputNs; j < totalNs;j++)
+            this.ann.getConnections()[i][j] = true;
+        }
+        for(int i = 0; i < noOfHiddenNs; i++){
+            for(int j = noOfInputNs; j < totalNs;j++)
+            this.ann.getConnections()[noOfInputNs+i][j+i] = true;
+        }
+        
+    }
+
+    private void getChromosomeLength() {
+        for (int i = 0; i < totalNs; i++){
+
         }
     }
 
