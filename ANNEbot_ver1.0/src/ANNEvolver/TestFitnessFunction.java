@@ -18,11 +18,12 @@ public class TestFitnessFunction extends FitnessFunction{
     @Override
     protected double evaluate(IChromosome ic) {
         double fitness = 0;
-        Matrix weightMatrix = EvolverUtility.getWeightsFromChromosome(ic);
+        Matrix weightsNBiasMatrix = EvolverUtility.getWeightsFromChromosome(ic);
         double[][]input = this.getInput("/home/dilmi/Desktop/Iris data set.txt");
         double[] output;
         ANN ann = new ANN(ANNConfiguration.inputNeuronCount, ANNConfiguration.hiddenLNeuronCount, ANNConfiguration.outputNeuronCount);
-        ann.setWeights(weightMatrix);
+        Matrix weights = this.removeThresholds(weightsNBiasMatrix, ann);
+        ann.setWeights(weights);
         for(int i = 0 ; i < input.length ; i++){
             output = this.processInput(input[i], ann);
             fitness = fitness + this.getFitness(output, input[i][4]);
@@ -48,6 +49,9 @@ public class TestFitnessFunction extends FitnessFunction{
         return doubleInput;
     }
 
+    public Matrix removeThresholds(Matrix weightsNBias, ANN ann){
+        return weightsNBias;
+    }
 
     public double[] processInput(double []input, ANN ann){
         double output [] = new double [ann.getOutputNeuronCount()] ;
@@ -57,23 +61,22 @@ public class TestFitnessFunction extends FitnessFunction{
         }
         //for Hidden Neurons
         double value = 0;
-        for(int i = ann.getInputNeuronCount()-1 ; i < ann.getTotalNeuronCount()-ann.getOutputNeuronCount(); i++){
-            for(int j = 0 ; i< ann.getInputNeuronCount() ; i++){
+        for(int i = ann.getInputNeuronCount() ; i < ann.getTotalNeuronCount()-ann.getOutputNeuronCount(); i++){
+            for(int j = 0 ; i< ann.getTotalNeuronCount() ; i++){
                 value = value + (ann.getNeurons()[j].getValue()*ann.getWeights().get(j, i));
             }
-            ann.getNeurons()[i].setValue(value);
+            if(value > ann.getNeurons()[i].getThreshold())ann.getNeurons()[i].setValue(value);
         }
 
         //for Output Neurons
         value = 0;
-        for(int i = ann.getTotalNeuronCount()-ann.getOutputNeuronCount()-1 ; i < ann.getTotalNeuronCount(); i++){
-            for(int j = 0 ; i< ann.getTotalNeuronCount()-ann.getOutputNeuronCount() ; i++){
+        for(int i = ann.getTotalNeuronCount()-ann.getOutputNeuronCount() ; i < ann.getTotalNeuronCount(); i++){
+            for(int j = 0 ; i< ann.getTotalNeuronCount(); i++){
                 value = value + (ann.getNeurons()[j].getValue()*ann.getWeights().get(j, i));
             }
-            ann.getNeurons()[i].setValue(value);
+            if(value > ann.getNeurons()[i].getThreshold())ann.getNeurons()[i].setValue(value);
             output[i] = value;
         }
-
         return output;
 
     }
