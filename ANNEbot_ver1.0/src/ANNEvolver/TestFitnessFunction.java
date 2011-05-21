@@ -25,7 +25,7 @@ public class TestFitnessFunction extends FitnessFunction{
         Matrix weights = this.removeThresholds(weightsNBiasMatrix, ann);
         ann.setWeights(weights);
         for(int i = 0 ; i < input.length ; i++){
-            output = this.processInput(input[i], ann);
+            output = this.produceOutput(input[i], ann);
             fitness = fitness + this.getFitness(output, input[i][4]);
         }
         return fitness;
@@ -50,11 +50,16 @@ public class TestFitnessFunction extends FitnessFunction{
     }
 
     public Matrix removeThresholds(Matrix weightsNBias, ANN ann){
+        for(int i = 0 ; i < ann.getTotalNeuronCount() ; i++){
+            ann.getNeurons()[i].setThreshold(weightsNBias.get(i, i));
+            weightsNBias.set(i, i, 0);
+        }
         return weightsNBias;
     }
 
-    public double[] processInput(double []input, ANN ann){
+    public double[] produceOutput(double []input, ANN ann){
         double output [] = new double [ann.getOutputNeuronCount()] ;
+
         //for Input Neurons
         for(int i = 0 ; i < ann.getInputNeuronCount() ; i++){
             ann.getNeurons()[i].setValue(input[i]);
