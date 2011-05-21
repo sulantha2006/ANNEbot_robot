@@ -79,10 +79,12 @@ public class Evolver {
         if (DEBUG == 0){
             System.out.println("Population Evolved 1 times\n");
             IChromosome bestSolutionSoFar = population.getFittestChromosome();
-            System.out.println("Chromosome details: " + "Fitness: "+bestSolutionSoFar.getFitnessValue()+" Weights: ");
-            for(int i = 0; i <bestSolutionSoFar.getGenes().length;i++){
-                System.out.println(bestSolutionSoFar.getGene(i)+" ");
-            }
+//            System.out.println("Chromosome details: " + "Fitness: "+bestSolutionSoFar.getFitnessValue()+" Weights: ");
+//            for(int i = 0; i <bestSolutionSoFar.getGenes().length;i++){
+//                System.out.println(bestSolutionSoFar.getGene(i)+" ");
+//            }
+            Matrix wem = EvolverUtility.getWeightsFromChromosome(bestSolutionSoFar, ANNConfiguration.connectionsConfig);
+            wem.printMatrix();
         }
         for (int k = 0; k<99;k++){
             population.evolve();
@@ -91,10 +93,12 @@ public class Evolver {
         if (DEBUG == 0){
             System.out.println("Population Evolved 100 times \n");
             IChromosome bestSolutionSoFar = population.getFittestChromosome();
-            System.out.println("Chromosome details: " + "Fitness: "+bestSolutionSoFar.getFitnessValue()+" Weights: ");
-            for(int i = 0; i <bestSolutionSoFar.getGenes().length;i++){
-                System.out.println(bestSolutionSoFar.getGene(i)+" ");
-            }
+//            System.out.println("Chromosome details: " + "Fitness: "+bestSolutionSoFar.getFitnessValue()+" Weights: ");
+//            for(int i = 0; i <bestSolutionSoFar.getGenes().length;i++){
+//                System.out.println(bestSolutionSoFar.getGene(i)+" ");
+//            }
+            Matrix wem = EvolverUtility.getWeightsFromChromosome(bestSolutionSoFar, ANNConfiguration.connectionsConfig);
+            wem.printMatrix();
         }
     }
 
