@@ -21,7 +21,7 @@ public class TestFitnessFunction extends FitnessFunction{
         Matrix weightsNBiasMatrix = EvolverUtility.getWeightsFromChromosome(ic, ANNConfiguration.connectionsConfig);
         //weightsNBiasMatrix.printMatrix();
         double[][]input = this.getInput("/home/dilmi/Desktop/Iris data set.txt");
-        Matrix inputM = new Matrix(input);
+        //Matrix inputM = new Matrix(input);
         //inputM.printMatrix();
         double[] output;
         ANN ann = new ANN(ANNConfiguration.inputNeuronCountConfig, ANNConfiguration.hiddenLNeuronCountConfig, ANNConfiguration.outputNeuronCountConfig);
@@ -92,18 +92,41 @@ public class TestFitnessFunction extends FitnessFunction{
 
     public double getFitness(double output[], double irisType){
         double fitness = 0;
-        double max = 0;
-        for(int i = 0 ; i < output.length-1;i++){
-            if(output[i]!=output[i+1] && output[i]> output[i+1]){
-                max = i+1;
-            }
-            else if(output[i]!=output[i+1] && output[i]< output[i+1]){
-                max = i+1+1;
-            }
+        double max = output[0];
+        int maxIndex = 0;
+        
+        for(int i = 1 ; i < output.length;i++){
+                int comparor = Double.compare(max,output[i]);
+
+                if(comparor>0){
+                   
+                }
+                else if(comparor<0){
+                    max = output[i];
+                    maxIndex = i;
+                }
+            
+
         }
-        if(max==irisType){fitness=1;}
+        if((maxIndex+1)==irisType){fitness=1;}
         //System.out.println("Fitness of one input " + fitness);
         return fitness;
+    }
+
+   
+    public void verificationTable(Matrix weightsNBias){
+        double[][]input = this.getInput("/home/dilmi/Desktop/Iris data set.txt");
+        double[] output;
+        ANN ann = new ANN(ANNConfiguration.inputNeuronCountConfig, ANNConfiguration.hiddenLNeuronCountConfig, ANNConfiguration.outputNeuronCountConfig);
+        Matrix weights = this.removeThresholds(weightsNBias, ann);
+        ann.setWeights(weights);
+        for(int i = 0 ; i < input.length ; i++){
+            output = this.produceOutput(input[i], ann);
+            Matrix.createRowMatrix(output).printMatrix();
+            System.out.println("Input belongs to Class: " + input[i][4]);
+            System.out.println("Fitness : "+this.getFitness(output, input[i][4]));
+        }
+
     }
 
 
