@@ -28,7 +28,7 @@ public class TestFitnessFunction extends FitnessFunction{
             output = this.produceOutput(input[i], ann);
             fitness = fitness + this.getFitness(output, input[i][4]);
         }
-        System.out.println("fitness of a chromosome" + fitness);
+        //System.out.println("fitness of a chromosome" + fitness);
         return fitness;
     }
 
@@ -94,7 +94,7 @@ public class TestFitnessFunction extends FitnessFunction{
             if(output[i]<output[i+1]) {max = i+1;}
         }
         if(max==irisType){fitness=1;}
-        System.out.println("Fitness of one input " + fitness);
+        //System.out.println("Fitness of one input " + fitness);
         return fitness;
     }
 
