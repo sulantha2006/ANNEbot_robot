@@ -22,6 +22,7 @@ public class EvolverUtility {
                if (connections[i][j]){
                    
                    weightMatrix.set(i, j, ((Double)ic.getGene(icIndex).getAllele()).doubleValue());
+                   icIndex++;
                }
            }
 
