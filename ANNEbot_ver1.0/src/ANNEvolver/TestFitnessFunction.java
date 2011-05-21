@@ -41,9 +41,9 @@ public class TestFitnessFunction extends FitnessFunction{
         for(int i  = 0 ; i < doubleInput.length ; i++){
             for(int j  = 0 ; j < doubleInput[i].length; j++){
                 if(j == 4){
-                    if(stringInput[i][j].equals("Iris-setosa")){doubleInput[i][j] = 0;}
-                    else if(stringInput[i][j].equals("Iris-versicolor")){doubleInput[i][j] = 1;}
-                    else if(stringInput[i][j].equals("Iris-virginica")){doubleInput[i][j] = 2;}
+                    if(stringInput[i][j].equals("Iris-setosa")){doubleInput[i][j] = 1;}
+                    else if(stringInput[i][j].equals("Iris-versicolor")){doubleInput[i][j] = 2;}
+                    else if(stringInput[i][j].equals("Iris-virginica")){doubleInput[i][j] = 3;}
                 }
                 else{
                     doubleInput[i][j] = Double.valueOf(stringInput[i][j]);
@@ -94,7 +94,12 @@ public class TestFitnessFunction extends FitnessFunction{
         double fitness = 0;
         double max = 0;
         for(int i = 0 ; i < output.length-1;i++){
-            if(output[i]<output[i+1]) {max = i+1;}
+            if(output[i]!=output[i+1] && output[i]> output[i+1]){
+                max = i+1;
+            }
+            else if(output[i]!=output[i+1] && output[i]< output[i+1]){
+                max = i+1+1;
+            }
         }
         if(max==irisType){fitness=1;}
         //System.out.println("Fitness of one input " + fitness);
