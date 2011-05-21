@@ -20,9 +20,8 @@ public class EvolverUtility {
         for (int i = 0; i < totalNeuronCount; i++){
            for (int j = 0; j < totalNeuronCount; j++){
                if (connections[i][j]){
-                   System.out.println(" getWeights method \n");
-                   System.out.println(ic.getGene(icIndex));
-                   //weightMatrix.set(i, j, ic.getGene(icIndex).getEnergy());
+                   
+                   weightMatrix.set(i, j, ((Double)ic.getGene(icIndex).getAllele()).doubleValue());
                }
            }
 
