@@ -75,170 +75,24 @@ public class Evolver {
         conf.setPopulationSize(100);
 
         Genotype population = Genotype.randomInitialGenotype( conf );
-        population.evolve();
+        
 
         //Testing Evolved Data
-
-        if (DEBUG == 0){
-            System.out.println("Population Evolved 1 times\n");
-            IChromosome bestSolutionSoFar = population.getFittestChromosome();
-//            System.out.println("Chromosome details: " + "Fitness: "+bestSolutionSoFar.getFitnessValue()+" Weights: ");
-//            for(int i = 0; i <bestSolutionSoFar.getGenes().length;i++){
-//                System.out.println(bestSolutionSoFar.getGene(i)+" ");
-//            }
-            Matrix wem = EvolverUtility.getWeightsFromChromosome(bestSolutionSoFar, ANNConfiguration.connectionsConfig);
-
-            wem.printMatrix();
-        }
-        for (int k = 0; k<99;k++){
+        for (int k = 0; k<300;k++){
             population.evolve();
-        }
 
-        if (DEBUG == 0){
-            System.out.println("Population Evolved 100 times \n");
-            IChromosome bestSolutionSoFar = population.getFittestChromosome();
-            System.out.println(bestSolutionSoFar.getFitnessValue());
-//            System.out.println("Chromosome details: " + "Fitness: "+bestSolutionSoFar.getFitnessValue()+" Weights: ");
-//            for(int i = 0; i <bestSolutionSoFar.getGenes().length;i++){
-//                System.out.println(bestSolutionSoFar.getGene(i)+" ");
-//            }
-            Matrix wem = EvolverUtility.getWeightsFromChromosome(bestSolutionSoFar, ANNConfiguration.connectionsConfig);
-//            Matrix connections = new Matrix(BinaryUtil.boolean2binary(ann.getConnections()));
-//            connections.printMatrix();
-            wem.printMatrix();
+            if (DEBUG == 0){
+                System.out.println("Population Evolved" + k + "times\n");
+                IChromosome bestSolutionSoFar = population.getFittestChromosome();
+                System.out.println("% Fitness of the best chromosome : " + bestSolutionSoFar.getFitnessValue()/150*100);
+    //            System.out.println("Chromosome details: " + "Fitness: "+bestSolutionSoFar.getFitnessValue()+" Weights: ");
+    //            for(int i = 0; i <bestSolutionSoFar.getGenes().length;i++){
+    //                System.out.println(bestSolutionSoFar.getGene(i)+" ");
+    //            }
+
+            }
         }
 
-        ////////////////////////////////////////////////////////////////////////////
-        for (int k = 0; k<100;k++){
-            population.evolve();
-        }
-        if (DEBUG == 0){
-            System.out.println("Population Evolved 200 times \n");
-            IChromosome bestSolutionSoFar = population.getFittestChromosome();
-            System.out.println(bestSolutionSoFar.getFitnessValue());
-//            System.out.println("Chromosome details: " + "Fitness: "+bestSolutionSoFar.getFitnessValue()+" Weights: ");
-//            for(int i = 0; i <bestSolutionSoFar.getGenes().length;i++){
-//                System.out.println(bestSolutionSoFar.getGene(i)+" ");
-//            }
-            Matrix wem = EvolverUtility.getWeightsFromChromosome(bestSolutionSoFar, ANNConfiguration.connectionsConfig);
-//            Matrix connections = new Matrix(BinaryUtil.boolean2binary(ann.getConnections()));
-//            connections.printMatrix();
-            wem.printMatrix();
-        }
-        for (int k = 0; k<100;k++){
-            population.evolve();
-            
-        }
-        if (DEBUG == 0){
-            System.out.println("Population Evolved 300 times \n");
-            IChromosome bestSolutionSoFar = population.getFittestChromosome();
-            System.out.println(bestSolutionSoFar.getFitnessValue());
-//            System.out.println("Chromosome details: " + "Fitness: "+bestSolutionSoFar.getFitnessValue()+" Weights: ");
-//            for(int i = 0; i <bestSolutionSoFar.getGenes().length;i++){
-//                System.out.println(bestSolutionSoFar.getGene(i)+" ");
-//            }
-            Matrix wem = EvolverUtility.getWeightsFromChromosome(bestSolutionSoFar, ANNConfiguration.connectionsConfig);
-//            Matrix connections = new Matrix(BinaryUtil.boolean2binary(ann.getConnections()));
-//            connections.printMatrix();
-            wem.printMatrix();
-        }
-        for (int k = 0; k<100;k++){
-            population.evolve();
-            
-
-        }
-        if (DEBUG == 0){
-            System.out.println("Population Evolved 400 times \n");
-            IChromosome bestSolutionSoFar = population.getFittestChromosome();
-            System.out.println(bestSolutionSoFar.getFitnessValue());
-//            System.out.println("Chromosome details: " + "Fitness: "+bestSolutionSoFar.getFitnessValue()+" Weights: ");
-//            for(int i = 0; i <bestSolutionSoFar.getGenes().length;i++){
-//                System.out.println(bestSolutionSoFar.getGene(i)+" ");
-//            }
-            Matrix wem = EvolverUtility.getWeightsFromChromosome(bestSolutionSoFar, ANNConfiguration.connectionsConfig);
-//            Matrix connections = new Matrix(BinaryUtil.boolean2binary(ann.getConnections()));
-//            connections.printMatrix();
-            wem.printMatrix();
-        }for (int k = 0; k<100;k++){
-            population.evolve();
-            
-        }
-        if (DEBUG == 0){
-            System.out.println("Population Evolved 500 times \n");
-            IChromosome bestSolutionSoFar = population.getFittestChromosome();
-            System.out.println(bestSolutionSoFar.getFitnessValue());
-//            System.out.println("Chromosome details: " + "Fitness: "+bestSolutionSoFar.getFitnessValue()+" Weights: ");
-//            for(int i = 0; i <bestSolutionSoFar.getGenes().length;i++){
-//                System.out.println(bestSolutionSoFar.getGene(i)+" ");
-//            }
-            Matrix wem = EvolverUtility.getWeightsFromChromosome(bestSolutionSoFar, ANNConfiguration.connectionsConfig);
-//            Matrix connections = new Matrix(BinaryUtil.boolean2binary(ann.getConnections()));
-//            connections.printMatrix();
-            wem.printMatrix();
-        }for (int k = 0; k<100;k++){
-            population.evolve();
-            
-        }
-        if (DEBUG == 0){
-            System.out.println("Population Evolved 600 times \n");
-            IChromosome bestSolutionSoFar = population.getFittestChromosome();
-            System.out.println(bestSolutionSoFar.getFitnessValue());
-//            System.out.println("Chromosome details: " + "Fitness: "+bestSolutionSoFar.getFitnessValue()+" Weights: ");
-//            for(int i = 0; i <bestSolutionSoFar.getGenes().length;i++){
-//                System.out.println(bestSolutionSoFar.getGene(i)+" ");
-//            }
-            Matrix wem = EvolverUtility.getWeightsFromChromosome(bestSolutionSoFar, ANNConfiguration.connectionsConfig);
-//            Matrix connections = new Matrix(BinaryUtil.boolean2binary(ann.getConnections()));
-//            connections.printMatrix();
-            wem.printMatrix();
-        }for (int k = 0; k<100;k++){
-            population.evolve();
-        }
-        if (DEBUG == 0){
-            System.out.println("Population Evolved 700 times \n");
-            IChromosome bestSolutionSoFar = population.getFittestChromosome();
-            System.out.println(bestSolutionSoFar.getFitnessValue());
-//            System.out.println("Chromosome details: " + "Fitness: "+bestSolutionSoFar.getFitnessValue()+" Weights: ");
-//            for(int i = 0; i <bestSolutionSoFar.getGenes().length;i++){
-//                System.out.println(bestSolutionSoFar.getGene(i)+" ");
-//            }
-            Matrix wem = EvolverUtility.getWeightsFromChromosome(bestSolutionSoFar, ANNConfiguration.connectionsConfig);
-//            Matrix connections = new Matrix(BinaryUtil.boolean2binary(ann.getConnections()));
-//            connections.printMatrix();
-            wem.printMatrix();
-        }for (int k = 0; k<100;k++){
-            population.evolve();
-        }
-        if (DEBUG == 0){
-            System.out.println("Population Evolved 800 times \n");
-            IChromosome bestSolutionSoFar = population.getFittestChromosome();
-            System.out.println(bestSolutionSoFar.getFitnessValue());
-//            System.out.println("Chromosome details: " + "Fitness: "+bestSolutionSoFar.getFitnessValue()+" Weights: ");
-//            for(int i = 0; i <bestSolutionSoFar.getGenes().length;i++){
-//                System.out.println(bestSolutionSoFar.getGene(i)+" ");
-//            }
-            Matrix wem = EvolverUtility.getWeightsFromChromosome(bestSolutionSoFar, ANNConfiguration.connectionsConfig);
-//            Matrix connections = new Matrix(BinaryUtil.boolean2binary(ann.getConnections()));
-//            connections.printMatrix();
-            wem.printMatrix();
-        }for (int k = 0; k<100;k++){
-            population.evolve();
-        }
-        if (DEBUG == 0){
-            System.out.println("Population Evolved 900 times \n");
-            IChromosome bestSolutionSoFar = population.getFittestChromosome();
-            System.out.println(bestSolutionSoFar.getFitnessValue());
-//            System.out.println("Chromosome details: " + "Fitness: "+bestSolutionSoFar.getFitnessValue()+" Weights: ");
-//            for(int i = 0; i <bestSolutionSoFar.getGenes().length;i++){
-//                System.out.println(bestSolutionSoFar.getGene(i)+" ");
-//            }
-            Matrix wem = EvolverUtility.getWeightsFromChromosome(bestSolutionSoFar, ANNConfiguration.connectionsConfig);
-//            Matrix connections = new Matrix(BinaryUtil.boolean2binary(ann.getConnections()));
-//            connections.printMatrix();
-            wem.printMatrix();
-            weights = EvolverUtility.getWeightsFromChromosome(population.getFittestChromosome(), ANNConfiguration.connectionsConfig);
-            test.verificationTable(weights);
-        }
         
         ////////////////////////////////////////////////////////////////////////////
     }
