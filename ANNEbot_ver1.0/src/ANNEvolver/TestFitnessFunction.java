@@ -19,7 +19,10 @@ public class TestFitnessFunction extends FitnessFunction{
     protected double evaluate(IChromosome ic) {
         double fitness = 0;
         Matrix weightsNBiasMatrix = EvolverUtility.getWeightsFromChromosome(ic, ANNConfiguration.connectionsConfig);
+        weightsNBiasMatrix.printMatrix();
         double[][]input = this.getInput("/home/dilmi/Desktop/Iris data set.txt");
+        Matrix inputM = new Matrix(input);
+        inputM.printMatrix();
         double[] output;
         ANN ann = new ANN(ANNConfiguration.inputNeuronCountConfig, ANNConfiguration.hiddenLNeuronCountConfig, ANNConfiguration.outputNeuronCountConfig);
         Matrix weights = this.removeThresholds(weightsNBiasMatrix, ann);
