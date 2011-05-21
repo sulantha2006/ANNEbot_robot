@@ -84,6 +84,7 @@ public class Evolver {
 //                System.out.println(bestSolutionSoFar.getGene(i)+" ");
 //            }
             Matrix wem = EvolverUtility.getWeightsFromChromosome(bestSolutionSoFar, ANNConfiguration.connectionsConfig);
+
             wem.printMatrix();
         }
         for (int k = 0; k<99;k++){
@@ -98,6 +99,8 @@ public class Evolver {
 //                System.out.println(bestSolutionSoFar.getGene(i)+" ");
 //            }
             Matrix wem = EvolverUtility.getWeightsFromChromosome(bestSolutionSoFar, ANNConfiguration.connectionsConfig);
+            Matrix connections = new Matrix(BinaryUtil.boolean2binary(ann.getConnections()));
+            connections.printMatrix();
             wem.printMatrix();
         }
     }
