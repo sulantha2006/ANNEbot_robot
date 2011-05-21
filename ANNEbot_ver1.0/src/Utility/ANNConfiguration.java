@@ -10,9 +10,10 @@ package Utility;
  * @author dilmi
  */
 public class ANNConfiguration {
-    public static int inputNeuronCount = 0;
-    public static int outputNeuronCount = 0;
-    public static int hiddenLNeuronCount = 0;
+    public static int inputNeuronCountConfig = 0;
+    public static int outputNeuronCountConfig = 0;
+    public static int hiddenLNeuronCountConfig = 0;
+    public static boolean [][] connectionsConfig;
 
 
 }

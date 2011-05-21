@@ -18,10 +18,10 @@ public class TestFitnessFunction extends FitnessFunction{
     @Override
     protected double evaluate(IChromosome ic) {
         double fitness = 0;
-        Matrix weightsNBiasMatrix = EvolverUtility.getWeightsFromChromosome(ic);
+        Matrix weightsNBiasMatrix = EvolverUtility.getWeightsFromChromosome(ic, ANNConfiguration.connectionsConfig);
         double[][]input = this.getInput("/home/dilmi/Desktop/Iris data set.txt");
         double[] output;
-        ANN ann = new ANN(ANNConfiguration.inputNeuronCount, ANNConfiguration.hiddenLNeuronCount, ANNConfiguration.outputNeuronCount);
+        ANN ann = new ANN(ANNConfiguration.inputNeuronCountConfig, ANNConfiguration.hiddenLNeuronCountConfig, ANNConfiguration.outputNeuronCountConfig);
         Matrix weights = this.removeThresholds(weightsNBiasMatrix, ann);
         ann.setWeights(weights);
         for(int i = 0 ; i < input.length ; i++){

@@ -5,7 +5,7 @@
 
 package ANNEvolver;
 
-import Utility.Matrix;
+import Utility.*;
 import org.jgap.IChromosome;
 
 /**
@@ -13,10 +13,17 @@ import org.jgap.IChromosome;
  * @author sulantha
  */
 public class EvolverUtility {
-    public static Matrix getWeightsFromChromosome(IChromosome ic){
-        Matrix weightMatrix = new Matrix(1, ic.size());
-        for (int l = 0; l < ic.size(); l++){
-            weightMatrix.set(0, l, ic.getGene(l).getEnergy());
+    public static Matrix getWeightsFromChromosome(IChromosome ic, boolean [][] connections){
+        int totalNeuronCount = ANNConfiguration.inputNeuronCountConfig + ANNConfiguration.hiddenLNeuronCountConfig + ANNConfiguration.outputNeuronCountConfig;
+        Matrix weightMatrix = new Matrix(totalNeuronCount, totalNeuronCount);
+        int icIndex = 0;
+        for (int i = 0; i < totalNeuronCount; i++){
+           for (int j = 0; j < totalNeuronCount; j++){
+               if (connections[i][j]){
+                   weightMatrix.set(i, j, ic.getGene(icIndex).getEnergy());
+               }
+           }
+
         }
         return weightMatrix;
     }

@@ -6,6 +6,7 @@
 package ANNEvolver;
 
 import ANN.ANN;
+import Utility.ANNConfiguration;
 import Utility.BinaryUtil;
 import Utility.Matrix;
 import org.jgap.Chromosome;
@@ -34,6 +35,9 @@ public class Evolver {
 
     public void initialize(int numInputNeurons , int hNCount, int numOutputNeurons){
         this.ann = new ANN(numInputNeurons,hNCount,numOutputNeurons);
+        ANNConfiguration.inputNeuronCountConfig = numInputNeurons;
+        ANNConfiguration.hiddenLNeuronCountConfig = hNCount;
+        ANNConfiguration.outputNeuronCountConfig = numOutputNeurons;
         noOfInputNs = numInputNeurons;
         noOfHiddenNs = hNCount;
         noOfOutputNs = numOutputNeurons;
@@ -50,13 +54,12 @@ public class Evolver {
         connections.printMatrix();
         //Get Chromosome Length
         getChromosomeLength();
-
         //JGAP
         Configuration conf = new DefaultConfiguration();
         FitnessFunction testFunc = new TestFitnessFunction();
         conf.setFitnessFunction(testFunc);
 
-        int lengthOfChromosome = this.ann.getWeights().toPackedArray().length;
+        int lengthOfChromosome = chromosomeLength;
 
         Gene[] sampleGenes = new Gene[lengthOfChromosome];
         for (int i=0; i<lengthOfChromosome; i++){
@@ -66,7 +69,7 @@ public class Evolver {
         Chromosome sampleChromosome = new Chromosome(conf, sampleGenes );
         conf.setSampleChromosome( sampleChromosome );
 
-        conf.setPopulationSize(10);
+        conf.setPopulationSize(20);
 
         Genotype population = Genotype.randomInitialGenotype( conf );
         population.evolve();
@@ -97,20 +100,33 @@ public class Evolver {
 
     private void initConnectionMatrix() {
         for(int i = 0; i < noOfInputNs; i++){
-            for(int j = noOfInputNs; j < totalNs;j++)
-            this.ann.getConnections()[i][j] = true;
+            for(int j = noOfInputNs; j < totalNs;j++){
+                this.ann.getConnections()[i][j] = true;
+            }
         }
         for(int i = 0; i < noOfHiddenNs; i++){
-            for(int j = noOfInputNs; j < totalNs;j++)
-            this.ann.getConnections()[noOfInputNs+i][j+i] = true;
+            for(int j = noOfInputNs; j < totalNs;j++){
+                if(noOfInputNs+i <= j)
+                    this.ann.getConnections()[noOfInputNs+i][j] = true;
+            }
         }
+
+       ANNConfiguration.connectionsConfig = this.ann.getConnections();
         
     }
 
     private void getChromosomeLength() {
+        int length = 0;
         for (int i = 0; i < totalNs; i++){
+            for (int j = 0; j < totalNs; j++){
+                if (this.ann.getConnections()[i][j])
+                    length = length +1;
+            }
 
         }
+
+        // Have to add the threasholds to the chromosome
+        chromosomeLength = length + noOfHiddenNs + noOfOutputNs;
     }
 
     
