@@ -12,21 +12,22 @@ import Utility.*;
  * @author dilmi
  */
 public class Neuron {
-        private double activation = 0;
+    private double value = 0;
     private double threshold = 10000;
     private String NeuronType;
+    private String name;
 
 
     Neuron(String type){
         this.NeuronType = type;
     }
 
-    public double getActivation() {
-        return activation;
+    public double getValue() {
+        return value;
     }
 
-    public void setActivation(double activation) {
-        this.activation = activation;
+    public void setValue(double activation) {
+        this.value = activation;
     }
 
     public String getNeuronType() {
@@ -44,6 +45,16 @@ public class Neuron {
     public void setThreshold(double threshold) {
         this.threshold = threshold;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
 
 
 

@@ -6,7 +6,6 @@
 package ANN;
 
 import Utility.*;
-import java.util.ArrayList;
 
 /**
  *
@@ -20,9 +19,10 @@ public class ANN {
     private int outputNeuronCount = 0;
     private int hiddenLNeuronCount = 0;
     private int totalNeuronCount;
-    private boolean hasAHiddenNeurons = false;
+    private boolean[][] hiddenNodes;
     private double fitness = 0;
     private Matrix weights;
+    private boolean [][] connections;
     private Neuron[] neurons;
 
 
@@ -30,22 +30,21 @@ public class ANN {
         this.inputNeuronCount = numInputNeurons ;
         this.outputNeuronCount = numOutputNeurons ;
         this.hiddenLNeuronCount = numHiddenNeurons;
-        this.hasAHiddenNeurons = true;
+        this.totalNeuronCount = this.inputNeuronCount+this.outputNeuronCount+this.hiddenLNeuronCount;
+        this.hiddenNodes = new boolean[this.totalNeuronCount][this.totalNeuronCount];
         this.initANN();
     }
 
     public ANN(int numInputNeurons , int numOutputNeurons){
         this.inputNeuronCount = numInputNeurons ;
         this.outputNeuronCount = numOutputNeurons ;
+        this.totalNeuronCount = this.inputNeuronCount+this.outputNeuronCount+this.hiddenLNeuronCount;
         this.initANN();
     }
 
-
-
-
     private void initANN(){
-        this.totalNeuronCount = this.inputNeuronCount+this.outputNeuronCount+this.hiddenLNeuronCount;
         this.weights = new Matrix(this.totalNeuronCount,this.totalNeuronCount);
+        this.connections = new boolean [this.totalNeuronCount][this.totalNeuronCount];
         this.neurons = new Neuron[this.totalNeuronCount];
         for(int i = 0 ; i < this.totalNeuronCount ; i++){
             if(i<this.inputNeuronCount){
@@ -60,8 +59,6 @@ public class ANN {
 
     }
 
-
-
     public Matrix getWeights(){
         return this.weights;
     }
@@ -70,12 +67,12 @@ public class ANN {
         this.weights = newWeights;
     }
 
-    public boolean isHasAHiddenLayer() {
-        return hasAHiddenNeurons;
+    public boolean[][] getConnections() {
+        return connections;
     }
 
-    public void setHasAHiddenLayer(boolean hasAHiddenLayer) {
-        this.hasAHiddenNeurons = hasAHiddenLayer;
+    public void setConnections(boolean[][] connections) {
+        this.connections = connections;
     }
 
     public int getInputNeuronCount() {
@@ -110,14 +107,15 @@ public class ANN {
         this.fitness = fitness;
     }
 
-    public boolean isHasAHiddenNeurons() {
-        return hasAHiddenNeurons;
+    public boolean[][] getHiddenNodes() {
+        return hiddenNodes;
     }
 
-    public void setHasAHiddenNeurons(boolean hasAHiddenNeurons) {
-        this.hasAHiddenNeurons = hasAHiddenNeurons;
+    public void setHiddenNodes(boolean[][] hiddenNodes) {
+        this.hiddenNodes = hiddenNodes;
     }
 
+    
     public int getHiddenLNeuronCount() {
         return hiddenLNeuronCount;
     }
@@ -141,6 +139,5 @@ public class ANN {
     public void setTotalNeuronCount(int totalNeuronCount) {
         this.totalNeuronCount = totalNeuronCount;
     }
-
 }
 

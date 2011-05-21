@@ -9,18 +9,18 @@ package Utility;
  *
  * @author Dilmi
  */
-public class BiPolarUtil {
-    double[][] boolean2bipolar(boolean[][] booleanInput){
-        double[][] bipolarOutput = new double[booleanInput.length][booleanInput[0].length];
+public class BinaryUtil {
+    public static double[][] boolean2binary(boolean[][] booleanInput){
+        double[][] binaryOutput = new double[booleanInput.length][booleanInput[0].length];
         for(int i = 0 ; i < booleanInput.length ; i++){
             for(int j = 0 ; j < booleanInput[0].length ; j++){
                 if(booleanInput[i][j])
-                    bipolarOutput[i][j] = 1;
+                    binaryOutput[i][j] = 1;
                 else
-                    bipolarOutput[i][j] = -1;
+                    binaryOutput[i][j] = 0;
             }
         }
-        return bipolarOutput;
+        return binaryOutput;
     }
 
     double[] boolean2bipolar(boolean[] booleanInput){
