@@ -14,4 +14,5 @@ public class ANNConfiguration {
     public static int outputNeuronCount = 0;
     public static int hiddenLNeuronCount = 0;
 
+
 }

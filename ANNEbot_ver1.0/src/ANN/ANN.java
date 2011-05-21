@@ -32,6 +32,7 @@ public class ANN {
         this.hiddenLNeuronCount = numHiddenNeurons;
         this.totalNeuronCount = this.inputNeuronCount+this.outputNeuronCount+this.hiddenLNeuronCount;
         this.hiddenNodes = new boolean[this.totalNeuronCount][this.totalNeuronCount];
+        this.connections = new boolean[this.totalNeuronCount][this.totalNeuronCount];
         this.initANN();
     }
 
@@ -39,6 +40,7 @@ public class ANN {
         this.inputNeuronCount = numInputNeurons ;
         this.outputNeuronCount = numOutputNeurons ;
         this.totalNeuronCount = this.inputNeuronCount+this.outputNeuronCount+this.hiddenLNeuronCount;
+        this.connections = new boolean[this.totalNeuronCount][this.totalNeuronCount];
         this.initANN();
     }
 

@@ -13,7 +13,7 @@ import Utility.*;
  */
 public class Neuron {
     private double value = 0;
-    private double threshold = 10000;
+    private double threshold = 0;
     private String NeuronType;
     private String name;
 
