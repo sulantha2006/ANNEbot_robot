@@ -28,6 +28,7 @@ public class TestFitnessFunction extends FitnessFunction{
             output = this.produceOutput(input[i], ann);
             fitness = fitness + this.getFitness(output, input[i][4]);
         }
+        System.out.println("fitness of a chromosome" + fitness);
         return fitness;
     }
 
@@ -66,8 +67,8 @@ public class TestFitnessFunction extends FitnessFunction{
         }
         //for Hidden Neurons
         double value = 0;
-        for(int i = ann.getInputNeuronCount() ; i < ann.getTotalNeuronCount()-ann.getOutputNeuronCount(); i++){
-            for(int j = 0 ; i< ann.getTotalNeuronCount() ; i++){
+        for(int i = ann.getInputNeuronCount() ; i < (ann.getTotalNeuronCount()-ann.getOutputNeuronCount()); i++){
+            for(int j = 0 ; j< ann.getTotalNeuronCount() ; j++){
                 value = value + (ann.getNeurons()[j].getValue()*ann.getWeights().get(j, i));
             }
             if(value > ann.getNeurons()[i].getThreshold())ann.getNeurons()[i].setValue(value);
@@ -76,11 +77,11 @@ public class TestFitnessFunction extends FitnessFunction{
         //for Output Neurons
         value = 0;
         for(int i = ann.getTotalNeuronCount()-ann.getOutputNeuronCount() ; i < ann.getTotalNeuronCount(); i++){
-            for(int j = 0 ; i< ann.getTotalNeuronCount(); i++){
+            for(int j = 0 ; j< ann.getTotalNeuronCount(); j++){
                 value = value + (ann.getNeurons()[j].getValue()*ann.getWeights().get(j, i));
             }
             if(value > ann.getNeurons()[i].getThreshold())ann.getNeurons()[i].setValue(value);
-            output[i] = value;
+            output[i-(ann.getTotalNeuronCount()-ann.getOutputNeuronCount())] = value;
         }
         return output;
 
@@ -93,6 +94,7 @@ public class TestFitnessFunction extends FitnessFunction{
             if(output[i]<output[i+1]) {max = i+1;}
         }
         if(max==irisType){fitness=1;}
+        System.out.println("Fitness of one input " + fitness);
         return fitness;
     }
 
