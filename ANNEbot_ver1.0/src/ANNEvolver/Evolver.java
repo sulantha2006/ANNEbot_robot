@@ -8,6 +8,7 @@ package ANNEvolver;
 import ANN.ANN;
 import Utility.ANNConfiguration;
 import Utility.BinaryUtil;
+import Utility.DataLogger;
 import Utility.Matrix;
 import org.jgap.Chromosome;
 import org.jgap.FitnessFunction;
@@ -33,10 +34,13 @@ public class Evolver {
     private int totalNs;
     int chromosomeLength = 0;
 
-    Matrix weights;
-    TestFitnessFunction test = new TestFitnessFunction();
+    
+    private int noOfEvolutions;
+    double []data;
 
-    public void initialize(int numInputNeurons , int hNCount, int numOutputNeurons){
+    
+
+    public void initialize(int numInputNeurons , int hNCount, int numOutputNeurons, int numEvolutions){
         this.ann = new ANN(numInputNeurons,hNCount,numOutputNeurons);
         ANNConfiguration.inputNeuronCountConfig = numInputNeurons;
         ANNConfiguration.hiddenLNeuronCountConfig = hNCount;
@@ -44,6 +48,8 @@ public class Evolver {
         noOfInputNs = numInputNeurons;
         noOfHiddenNs = hNCount;
         noOfOutputNs = numOutputNeurons;
+        this.noOfEvolutions = numEvolutions;
+        data = new double[numEvolutions];
         totalNs = noOfInputNs + noOfHiddenNs + noOfOutputNs;
     }
 
@@ -59,7 +65,8 @@ public class Evolver {
         getChromosomeLength();
         //JGAP
         Configuration conf = new DefaultConfiguration();
-        FitnessFunction testFunc = new TestFitnessFunction();
+        //FitnessFunction testFunc = new IrisFitnessFunction();
+        FitnessFunction testFunc = new MackeyGlassFitnessFunction();
         conf.setFitnessFunction(testFunc);
 
         int lengthOfChromosome = chromosomeLength;
@@ -75,16 +82,27 @@ public class Evolver {
         conf.setPopulationSize(100);
 
         Genotype population = Genotype.randomInitialGenotype( conf );
-        
-
+        IChromosome initialPopSample = population.getFittestChromosome();
+        String [][]stats = EvolverUtility.getANNfromChromosome(initialPopSample).ANNstats();
+        for(int i = 0; i < stats.length ; i++){
+            for(int j = 0 ; j < stats[0].length ; j++){
+                System.out.print(stats[i][j]);
+            }
+            System.out.println("");
+        }
+        System.out.println("Total Chromosome Size : " + initialPopSample.size());
         //Testing Evolved Data
-        for (int k = 0; k<300;k++){
+        for (int k = 0; k<noOfEvolutions;k++){
             population.evolve();
 
             if (DEBUG == 0){
-                System.out.println("Population Evolved" + k + "times\n");
+                System.out.println("Population Evolved " + k + " ltimes\n");
                 IChromosome bestSolutionSoFar = population.getFittestChromosome();
-                System.out.println("% Fitness of the best chromosome : " + bestSolutionSoFar.getFitnessValue()/150*100);
+                System.out.println("% Fitness of the best chromosome : " + bestSolutionSoFar.getFitnessValue());
+                data[k] = bestSolutionSoFar.getFitnessValue();
+                if(data[k]> 95 && data[k-1]<95){
+                    DataLogger.writeToFile("/home/dilmi/Desktop/Variation with number of neurons.txt", k);
+                }
     //            System.out.println("Chromosome details: " + "Fitness: "+bestSolutionSoFar.getFitnessValue()+" Weights: ");
     //            for(int i = 0; i <bestSolutionSoFar.getGenes().length;i++){
     //                System.out.println(bestSolutionSoFar.getGene(i)+" ");
@@ -92,6 +110,7 @@ public class Evolver {
 
             }
         }
+        DataLogger.writeToFile1D("/home/dilmi/Desktop/Test.txt", data);
 
         
         ////////////////////////////////////////////////////////////////////////////

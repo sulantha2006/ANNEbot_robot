@@ -61,6 +61,62 @@ public class ANN {
 
     }
 
+        public double[] produceOutput(double []input){
+        double output [] = new double [this.getOutputNeuronCount()] ;
+
+        //for Input Neurons
+        for(int i = 0 ; i < this.getInputNeuronCount() ; i++){
+            this.getNeurons()[i].setValue(input[i]);
+        }
+        //for Hidden Neurons
+        double value = 0;
+        for(int i = this.getInputNeuronCount() ; i < (this.getTotalNeuronCount()-this.getOutputNeuronCount()); i++){
+            for(int j = 0 ; j< this.getTotalNeuronCount() ; j++){
+                value = value + (this.getNeurons()[j].getValue()*this.getWeights().get(j, i));
+            }
+            if(value > this.getNeurons()[i].getThreshold())this.getNeurons()[i].setValue(value);
+        }
+
+        //for Output Neurons
+        value = 0;
+        for(int i = this.getTotalNeuronCount()-this.getOutputNeuronCount() ; i < this.getTotalNeuronCount(); i++){
+            for(int j = 0 ; j< this.getTotalNeuronCount(); j++){
+                value = value + (this.getNeurons()[j].getValue()*this.getWeights().get(j, i));
+            }
+            if(value > this.getNeurons()[i].getThreshold())this.getNeurons()[i].setValue(value);
+            output[i-(this.getTotalNeuronCount()-this.getOutputNeuronCount())] = value;
+        }
+        return output;
+
+    }
+
+    public String[][] ANNstats(){
+        String[][] stats = new String[5][2];
+        stats[0][0] = "Input Neurons : ";
+        stats[0][1] = Integer.toString(this.inputNeuronCount);
+
+        stats[1][0] = "Hidden Neurons : ";
+        stats[1][1] = Integer.toString(this.hiddenLNeuronCount);
+
+        stats[2][0] = "Output Neurons : ";
+        stats[2][1] = Integer.toString(this.outputNeuronCount);
+
+        stats[3][0] = "Total Neurons : ";
+        stats[3][1] = Integer.toString(this.totalNeuronCount);
+
+        stats[4][0] = "Total Connection Weights : ";
+        int totalconnectionsweights = 0;
+        for (int i = 0; i < totalNeuronCount; i++){
+           for (int j = 0; j < totalNeuronCount; j++){
+               if (connections[i][j]){
+                   totalconnectionsweights = totalconnectionsweights + 1;
+               }
+               }
+           }
+        stats[4][1] = Integer.toString(totalconnectionsweights);
+        return stats;
+    }
+
     public Matrix getWeights(){
         return this.weights;
     }

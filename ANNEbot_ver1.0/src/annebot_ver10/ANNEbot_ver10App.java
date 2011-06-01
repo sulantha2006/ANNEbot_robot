@@ -5,6 +5,7 @@
 package annebot_ver10;
 
 import org.jdesktop.application.Application;
+import org.jdesktop.application.FrameView;
 import org.jdesktop.application.SingleFrameApplication;
 
 /**
@@ -16,7 +17,10 @@ public class ANNEbot_ver10App extends SingleFrameApplication {
      * At startup create and show the main frame of the application.
      */
     @Override protected void startup() {
-        show(new ANNEbot_ver10View(this));
+        FrameView view = new ANNEbot_ver10View(this);
+        
+            show(new ANNEbot_ver10View(this));
+        
     }
 
     /**

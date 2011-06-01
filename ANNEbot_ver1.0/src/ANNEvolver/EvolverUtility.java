@@ -5,6 +5,7 @@
 
 package ANNEvolver;
 
+import ANN.ANN;
 import Utility.*;
 import org.jgap.IChromosome;
 
@@ -13,6 +14,14 @@ import org.jgap.IChromosome;
  * @author sulantha
  */
 public class EvolverUtility {
+
+    public static ANN getANNfromChromosome(IChromosome ic){
+        Matrix weightsNBiasMatrix = EvolverUtility.getWeightsFromChromosome(ic, ANNConfiguration.connectionsConfig);
+        ANN ann = new ANN(ANNConfiguration.inputNeuronCountConfig, ANNConfiguration.hiddenLNeuronCountConfig, ANNConfiguration.outputNeuronCountConfig);
+        Matrix weights = EvolverUtility.removeThresholds(weightsNBiasMatrix, ann);
+        ann.setWeights(weights);
+        return ann;
+    }
     public static Matrix getWeightsFromChromosome(IChromosome ic, boolean [][] connections){
         int totalNeuronCount = ANNConfiguration.inputNeuronCountConfig + ANNConfiguration.hiddenLNeuronCountConfig + ANNConfiguration.outputNeuronCountConfig;
         Matrix weightMatrix = new Matrix(totalNeuronCount, totalNeuronCount);
@@ -25,10 +34,18 @@ public class EvolverUtility {
                    icIndex++;
                }
            }
-
         }
         return weightMatrix;
     }
+
+    public static Matrix removeThresholds(Matrix weightsNBias, ANN ann){
+        for(int i = 0 ; i < ann.getTotalNeuronCount() ; i++){
+            ann.getNeurons()[i].setThreshold(weightsNBias.get(i, i));
+            weightsNBias.set(i, i, 0);
+        }
+        return weightsNBias;
+    }
+
 
 
 }
