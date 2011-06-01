@@ -7,7 +7,7 @@ package ANNEvolver;
 
 import ANN.ANN;
 import Utility.ANNConfiguration;
-import Utility.Matrix;
+import Utility.DataLogger;
 import org.jgap.Chromosome;
 import org.jgap.FitnessFunction;
 import org.jgap.Configuration;
