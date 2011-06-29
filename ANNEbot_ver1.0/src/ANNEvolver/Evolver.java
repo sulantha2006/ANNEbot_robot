@@ -7,14 +7,6 @@ package ANNEvolver;
 
 import ANN.ANN;
 import Utility.ANNConfiguration;
-import Utility.DataLogger;
-import org.jgap.Chromosome;
-import org.jgap.FitnessFunction;
-import org.jgap.Configuration;
-import org.jgap.impl.DefaultConfiguration;
-import org.jgap.Gene;
-import org.jgap.impl.DoubleGene;
-import org.jgap.Genotype;
 import org.jgap.IChromosome;
 
 /**
@@ -31,11 +23,14 @@ public class Evolver {
     private int noOfOutputNs;
     private int totalNs;
     int chromosomeLength = 0;
+    int populationSize = 100;
 
     
     private int noOfEvolutions;
     double []fitnessValue;
     private double[] validationError;
+    int maxHiddenNeurons = 10;
+    int numOfModifiableConnections = 0;//=noOfHiddenNs*(noOfOutputNs+noOfInputNs) at the perticular instance.
 
     
 
@@ -56,78 +51,91 @@ public class Evolver {
 
 
     public void train() throws Exception{
-
-        //Initilization of the connection Matrix
+        //Housekeeping Work
+        int averageCount = 5;
+        int maxEvolutionsAllowed = 100;
+        double upperThreshold = 85.0;
+        WeightModifier wm = new WeightModifier(averageCount, maxEvolutionsAllowed, upperThreshold);
+        ConnectionModifier cm = new ConnectionModifier();
+        NeuronModifier nm = new NeuronModifier();
         initConnectionMatrix();
-        //Matrix connections = new Matrix(BinaryUtil.boolean2binary(ann.getConnections()));
-        //connections.printMatrix();
-        //Get Chromosome Length
-        getChromosomeLength();
-        //JGAP
-        Configuration conf = new DefaultConfiguration();
-        //FitnessFunction testFunc = new IrisFitnessFunction();
-        FitnessFunction testFunc = new IrisFitnessFunction2();
-
-        //FitnessFunction testFunc = new MackeyGlassFitnessFunction();
-        conf.setFitnessFunction(testFunc);
-
-        int lengthOfChromosome = chromosomeLength;
-
-        Gene[] sampleGenes = new Gene[lengthOfChromosome];
-        for (int i=0; i<lengthOfChromosome; i++){
-            sampleGenes[i] = new DoubleGene(conf, -10.0, 10.0);
-        }
-
-        Chromosome sampleChromosome = new Chromosome(conf, sampleGenes );
-        conf.setSampleChromosome( sampleChromosome );
-
-        conf.setPopulationSize(100);
-
-        Genotype population = Genotype.randomInitialGenotype( conf );
-        IChromosome initialPopSample = population.getFittestChromosome();
-        String [][]stats = EvolverUtility.getANNfromChromosome(initialPopSample).ANNstats();
-        for(int i = 0; i < stats.length ; i++){
-            for(int j = 0 ; j < stats[0].length ; j++){
-                System.out.print(stats[i][j]);
-            }
-            System.out.println("");
-        }
-        System.out.println("Total Chromosome Size : " + initialPopSample.size());
-        int increment = 80;
-        //Testing Evolved Data
-        for (int k = 0; k<noOfEvolutions;k++){
-            population.evolve();
-
-
-            if (DEBUG == 0){
-                System.out.println("Population Evolved " + k + " ltimes\n");
-                IChromosome bestSolutionSoFar = population.getFittestChromosome();
-                System.out.println("% Fitness of the best chromosome : " + bestSolutionSoFar.getFitnessValue());
-                fitnessValue[k] = bestSolutionSoFar.getFitnessValue();
-                validationError[k] = new IrisFitnessFunction2().getValidationError(population.getFittestChromosome());
-
-                if(fitnessValue[k]>= increment){
-                    double validationError = new IrisFitnessFunction2().getValidationError(population.getFittestChromosome());
-                    System.out.println("Validation Error at % : " + validationError);
-                    //increment = increment + 10;
+        numOfModifiableConnections = ANNConfiguration.hiddenLNeuronCountConfig*(ANNConfiguration.outputNeuronCountConfig+ANNConfiguration.inputNeuronCountConfig);
+//        Configuration conf = new DefaultConfiguration();
+//        //FitnessFunction testFunc = new IrisFitnessFunction();
+//        FitnessFunction testFunc = new IrisFitnessFunction2();
+//        //FitnessFunction testFunc = new MackeyGlassFitnessFunction();
+//        conf.setFitnessFunction(testFunc);
+        //End Housekeeping
+        for (int i = 0; i < maxHiddenNeurons; i++) {
+            for (int j = 0; j < numOfModifiableConnections; j++) {
+                getChromosomeLength();
+                IChromosome bestWeightChromosome = wm.getBestWeightChromosome(chromosomeLength, populationSize);
+                int status = cm.returnStatus(bestWeightChromosome);
+                numOfModifiableConnections = ANNConfiguration.hiddenLNeuronCountConfig*(ANNConfiguration.outputNeuronCountConfig+ANNConfiguration.inputNeuronCountConfig);
+                if (status == 0) {
+                    break;
                 }
-
-                if(fitnessValue[k]>= 95 && fitnessValue[k-1]<95){
-                    DataLogger.writeToFile("/home/dilmi/Desktop/Variation with number of neurons.txt", k);
-                }
-    //            System.out.println("Chromosome details: " + "Fitness: "+bestSolutionSoFar.getFitnessValue()+" Weights: ");
-    //            for(int i = 0; i <bestSolutionSoFar.getGenes().length;i++){
-    //                System.out.println(bestSolutionSoFar.getGene(i)+" ");
-//            }
-//                if(validationError[k]==0){
-//                    break;
-//                }
             }
         }
-        DataLogger.writeToFile1D("/home/dilmi/Desktop/Test.txt", validationError);
-        double validationError = new IrisFitnessFunction2().getValidationError(population.getFittestChromosome());
-        System.out.println("Validation Error : " + validationError);
+
+
+        /////
         
+//        Gene[] sampleGenes = new Gene[lengthOfChromosome];
+//        for (int i=0; i<lengthOfChromosome; i++){
+//            sampleGenes[i] = new DoubleGene(conf, -10.0, 10.0);
+//        }
+//        Chromosome sampleChromosome = new Chromosome(conf, sampleGenes );
+//        conf.setSampleChromosome( sampleChromosome );
+//
+//        conf.setPopulationSize(populationSize);
+//
+//        Genotype population = Genotype.randomInitialGenotype( conf );
+//        IChromosome initialPopSample = population.getFittestChromosome();
+//        String [][]stats = EvolverUtility.getANNfromChromosome(initialPopSample).ANNstats();
+//        for(int i = 0; i < stats.length ; i++){
+//            for(int j = 0 ; j < stats[0].length ; j++){
+//                System.out.print(stats[i][j]);
+//            }
+//            System.out.println("");
+//        }
+//        System.out.println("Total Chromosome Size : " + initialPopSample.size());
+        //###########################################################################################################
+//        int increment = 80;
+//        //Testing Evolved Data
+//        for (int k = 0; k<noOfEvolutions;k++){
+//            population.evolve();
+//
+//
+//            if (DEBUG == 0){
+//                System.out.println("Population Evolved " + k + " ltimes\n");
+//                IChromosome bestSolutionSoFar = population.getFittestChromosome();
+//                System.out.println("% Fitness of the best chromosome : " + bestSolutionSoFar.getFitnessValue());
+//                fitnessValue[k] = bestSolutionSoFar.getFitnessValue();
+//                validationError[k] = new IrisFitnessFunction2().getValidationError(population.getFittestChromosome());
+//
+//                if(fitnessValue[k]>= increment){
+//                    double validationError = new IrisFitnessFunction2().getValidationError(population.getFittestChromosome());
+//                    System.out.println("Validation Error at % : " + validationError);
+//                    //increment = increment + 10;
+//                }
+//
+//                if(fitnessValue[k]>= 95 && fitnessValue[k-1]<95){
+//                    DataLogger.writeToFile("/home/dilmi/Desktop/Variation with number of neurons.txt", k);
+//                }
+//    //            System.out.println("Chromosome details: " + "Fitness: "+bestSolutionSoFar.getFitnessValue()+" Weights: ");
+//    //            for(int i = 0; i <bestSolutionSoFar.getGenes().length;i++){
+//    //                System.out.println(bestSolutionSoFar.getGene(i)+" ");
+////            }
+////                if(validationError[k]==0){
+////                    break;
+////                }
+//            }
+//        }
+//        DataLogger.writeToFile1D("/home/dilmi/Desktop/Test.txt", validationError);
+//        double validationError = new IrisFitnessFunction2().getValidationError(population.getFittestChromosome());
+//        System.out.println("Validation Error : " + validationError);
+        //########################################################################################################################
         ////////////////////////////////////////////////////////////////////////////
     }
 
@@ -138,7 +146,7 @@ public class Evolver {
             }
         }
         for(int i = 0; i < noOfHiddenNs; i++){
-            for(int j = noOfInputNs; j < totalNs;j++){
+            for(int j = noOfInputNs+1; j < totalNs;j++){
                 if(noOfInputNs+i <= j)
                     this.ann.getConnections()[noOfInputNs+i][j] = true;
             }
@@ -149,6 +157,7 @@ public class Evolver {
     }
 
     private void getChromosomeLength() {
+        totalNs = ANNConfiguration.inputNeuronCountConfig + ANNConfiguration.hiddenLNeuronCountConfig + ANNConfiguration.outputNeuronCountConfig;
         int length = 0;
         for (int i = 0; i < totalNs; i++){
             for (int j = 0; j < totalNs; j++){
@@ -157,13 +166,9 @@ public class Evolver {
             }
 
         }
-
         // Have to add the threasholds to the chromosome
         chromosomeLength = length + noOfHiddenNs + noOfOutputNs;
     }
 
-
-
-    
 
 }
