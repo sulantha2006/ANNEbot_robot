@@ -7,6 +7,8 @@ package ANNEvolver;
 
 import ANN.ANN;
 import Utility.ANNConfiguration;
+import Utility.DataLogger;
+import Utility.Stats;
 import org.jgap.IChromosome;
 
 /**
@@ -29,7 +31,7 @@ public class Evolver {
     private int noOfEvolutions;
     double []fitnessValue;
     private double[] validationError;
-    int maxHiddenNeurons = 10;
+    int maxHiddenNeurons = 0;
     int numOfModifiableConnections = 0;//=noOfHiddenNs*(noOfOutputNs+noOfInputNs) at the perticular instance.
 
     
@@ -41,6 +43,8 @@ public class Evolver {
         ANNConfiguration.outputNeuronCountConfig = numOutputNeurons;
         noOfInputNs = numInputNeurons;
         noOfHiddenNs = hNCount;
+        maxHiddenNeurons = hNCount;
+        Stats.annArray = new ANN[hNCount];
         noOfOutputNs = numOutputNeurons;
         this.noOfEvolutions = numEvolutions;
         fitnessValue = new double[numEvolutions];
@@ -58,7 +62,7 @@ public class Evolver {
         WeightModifier wm = new WeightModifier(averageCount, maxEvolutionsAllowed, upperThreshold);
         ConnectionModifier cm = new ConnectionModifier();
         NeuronModifier nm = new NeuronModifier();
-        initConnectionMatrix();
+        
         numOfModifiableConnections = ANNConfiguration.hiddenLNeuronCountConfig*(ANNConfiguration.outputNeuronCountConfig+ANNConfiguration.inputNeuronCountConfig);
 //        Configuration conf = new DefaultConfiguration();
 //        //FitnessFunction testFunc = new IrisFitnessFunction();
@@ -67,6 +71,8 @@ public class Evolver {
 //        conf.setFitnessFunction(testFunc);
         //End Housekeeping
         for (int i = 0; i < maxHiddenNeurons; i++) {
+            ANNConfiguration.hiddenLNeuronCountConfig = i+1;
+            initConnectionMatrix();
             for (int j = 0; j < numOfModifiableConnections; j++) {
                 getChromosomeLength();
                 IChromosome bestWeightChromosome = wm.getBestWeightChromosome(chromosomeLength, populationSize);
@@ -77,6 +83,7 @@ public class Evolver {
                 }
             }
         }
+        DataLogger.writeObjectToFile("/home/sulantha/Desktop/bestANN.dat", Stats.getBest());
 
 
         /////
@@ -140,6 +147,9 @@ public class Evolver {
     }
 
     private void initConnectionMatrix() {
+        totalNs = ANNConfiguration.inputNeuronCountConfig + ANNConfiguration.hiddenLNeuronCountConfig + ANNConfiguration.outputNeuronCountConfig;
+        noOfInputNs = ANNConfiguration.inputNeuronCountConfig;
+        noOfHiddenNs = ANNConfiguration.hiddenLNeuronCountConfig;
         for(int i = 0; i < noOfInputNs; i++){
             for(int j = noOfInputNs; j < totalNs;j++){
                 this.ann.getConnections()[i][j] = true;

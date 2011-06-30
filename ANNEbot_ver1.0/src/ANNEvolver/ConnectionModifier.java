@@ -6,6 +6,7 @@
 package ANNEvolver;
 
 import Utility.ANNConfiguration;
+import Utility.Stats;
 import org.jgap.IChromosome;
 
 /**
@@ -14,6 +15,7 @@ import org.jgap.IChromosome;
  */
 public class ConnectionModifier {
     IChromosome bestChromosome = null;
+    int count = 0;
 
     int returnStatus(IChromosome bestWeightChromosome) {
         int status = 1;
@@ -22,6 +24,8 @@ public class ConnectionModifier {
             status = 1;
         }else{
             if (bestChromosome.getFitnessValue() > bestWeightChromosome.getFitnessValue()) {
+                Stats.annArray[count] = EvolverUtility.getANNfromChromosome(bestChromosome);
+                count++;
                 status = 0;
             }else{
                 status = 1;

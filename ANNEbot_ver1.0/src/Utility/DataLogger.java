@@ -5,7 +5,9 @@
 
 package Utility;
 
+import java.io.FileOutputStream;
 import java.io.FileWriter;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 
 /**
@@ -58,6 +60,19 @@ public class DataLogger {
         out.close();
         }catch (Exception e){//Catch exception if any
           System.err.println("Error: " + e.getMessage());
+        }
+    }
+
+    public static void writeObjectToFile(String link, Object object){
+        try {
+            FileOutputStream fout = new FileOutputStream(link);
+            ObjectOutputStream oos = new ObjectOutputStream(fout);
+            oos.writeObject(object);
+            oos.close();
+            fout.close();
+        }
+        catch(Exception e){
+            e.printStackTrace();
         }
     }
 
