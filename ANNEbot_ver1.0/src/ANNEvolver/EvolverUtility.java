@@ -24,11 +24,15 @@ public class EvolverUtility {
     }
     public static Matrix getWeightsFromChromosome(IChromosome ic, boolean [][] connections){
         int totalNeuronCount = ANNConfiguration.inputNeuronCountConfig + ANNConfiguration.hiddenLNeuronCountConfig + ANNConfiguration.outputNeuronCountConfig;
+        int noInputNeuron = ANNConfiguration.inputNeuronCountConfig;
         Matrix weightMatrix = new Matrix(totalNeuronCount, totalNeuronCount);
+        //System.out.println("Weight Matrix " + weightMatrix.getNumOfRows()+"*"+weightMatrix.getNumOfCols());
         int icIndex = 0;
         for (int i = 0; i < totalNeuronCount; i++){
            for (int j = 0; j < totalNeuronCount; j++){
-               if ((connections[i][j])||i==j){//Check
+               if ((connections[i][j])||((i>=noInputNeuron)&&(i==j))){//Check
+                   //System.out.println("Weight Matrix position " + i+"*"+j);
+                   //System.out.println("IC index " + icIndex );
                    weightMatrix.set(i, j, ((Double)ic.getGene(icIndex).getAllele()).doubleValue());
                    icIndex++;
                }

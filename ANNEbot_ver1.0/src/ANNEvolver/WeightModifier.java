@@ -26,6 +26,7 @@ public class WeightModifier {
     private IChromosome bestChromosome = null;;
     private double bestChromosomeScore;
 
+
     public WeightModifier(int averageCount, int maxEvolutionsAllowed, double upperThreshold) {
         this.averageCount = averageCount;
         this.maxEvolutionsAllowed = maxEvolutionsAllowed;
@@ -33,9 +34,10 @@ public class WeightModifier {
     }
     
     public IChromosome getBestWeightChromosome(int chromosomeLength, int populationSize) throws InvalidConfigurationException{
+        Configuration.reset();
         Configuration conf = new DefaultConfiguration();
         //FitnessFunction testFunc = new IrisFitnessFunction();
-        FitnessFunction testFunc = new IrisFitnessFunction2();
+        FitnessFunction testFunc = new IrisFitnessFunction();
         //FitnessFunction testFunc = new MackeyGlassFitnessFunction();
         conf.setFitnessFunction(testFunc);
 
@@ -62,16 +64,18 @@ public class WeightModifier {
                 numOfEvolutionsToThresh = maxEvolutionsAllowed;
             }
             double finalFitness = population.getFittestChromosome().getFitnessValue();
-            double score = finalFitness/numOfEvolutionsToThresh;
+            double score = finalFitness;
             if (bestChromosome == null) {
                 bestChromosome = population.getFittestChromosome();
                 bestChromosomeScore = score;
+
             }else{
                 if (bestChromosomeScore < score) {
                     bestChromosome = population.getFittestChromosome();
                     bestChromosomeScore = score;
                 }
             }
+            System.out.println("Score of this Chromosome : "+score);
         }
         return bestChromosome;
     }

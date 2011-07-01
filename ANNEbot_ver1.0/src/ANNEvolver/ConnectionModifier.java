@@ -21,19 +21,23 @@ public class ConnectionModifier {
         int status = 1;
         if (bestChromosome == null) {
             bestChromosome = bestWeightChromosome;
+            ANNConfiguration.oldConnectionConfig = ANNConfiguration.connectionsConfig;
             status = 1;
         }else{
             if (bestChromosome.getFitnessValue() > bestWeightChromosome.getFitnessValue()) {
+                ANNConfiguration.connectionsConfig = ANNConfiguration.oldConnectionConfig;
                 Stats.annArray[count] = EvolverUtility.getANNfromChromosome(bestChromosome);
                 count++;
                 status = 0;
             }else{
+                ANNConfiguration.oldConnectionConfig = ANNConfiguration.connectionsConfig;
                 status = 1;
             }
         }
         if(status == 1){
             boolean[][] connections = ANNConfiguration.connectionsConfig;
             int totalNeuronCount = ANNConfiguration.inputNeuronCountConfig + ANNConfiguration.hiddenLNeuronCountConfig + ANNConfiguration.outputNeuronCountConfig;
+            int noInputNeuron = ANNConfiguration.inputNeuronCountConfig;
             double min = 1000.0;//Range of a weight is set to -10 to 10 in WeightModifier
             int minPos_i = 0;
             int min_Pos_j = 0;
@@ -41,7 +45,7 @@ public class ConnectionModifier {
             int icIndex = 0;
             for (int i = 0; i < totalNeuronCount; i++){
                for (int j = 0; j < totalNeuronCount; j++){
-                   if ((connections[i][j])||i==j){//Check
+                   if ((connections[i][j])||((i>=noInputNeuron)&&(i==j))){//Check
                        icIndex++;
                        if (i==j) {
                            continue;
@@ -55,6 +59,7 @@ public class ConnectionModifier {
                    }
                }
             }
+            //ANNConfiguration.oldConnectionConfig = ANNConfiguration.connectionsConfig;
             ANNConfiguration.connectionsConfig[minPos_i][min_Pos_j] = false;
         }
         return status;

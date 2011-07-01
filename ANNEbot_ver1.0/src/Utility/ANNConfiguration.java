@@ -14,6 +14,7 @@ public class ANNConfiguration {
     public static int outputNeuronCountConfig = 0;
     public static int hiddenLNeuronCountConfig = 0;
     public static boolean [][] connectionsConfig;
+    public static boolean [][] oldConnectionConfig;
 
 
 }

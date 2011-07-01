@@ -33,7 +33,7 @@ public class IrisFitnessFunction2 extends FitnessFunction {
     protected double getTrainingScore(IChromosome ic) {
         double fitness = 0;
         ANN ann = EvolverUtility.getANNfromChromosome(ic);
-        double[][]input = this.getInput("/home/dilmi/Desktop/Iris Training Set.txt");
+        double[][]input = this.getInput("/home/sulantha/Desktop/Iris Training Set.txt");
         double[] output;
         for(int i = 0 ; i < input.length ; i++){
             output = ann.produceOutput(input[i]);
@@ -87,7 +87,7 @@ public class IrisFitnessFunction2 extends FitnessFunction {
     public double getValidationError(IChromosome ic) {
         double fitness = 0;
         ANN ann = EvolverUtility.getANNfromChromosome(ic);
-        double[][]input = this.getInput("/home/dilmi/Desktop/Iris Validation Set.txt");
+        double[][]input = this.getInput("/home/sulantha/Desktop/Iris Validation Set.txt");
         double[] output;
         for(int i = 0 ; i < input.length ; i++){
             output = ann.produceOutput(input[i]);
@@ -97,7 +97,7 @@ public class IrisFitnessFunction2 extends FitnessFunction {
     }
 
     public void verificationTable(Matrix weightsNBias){
-        double[][]input = this.getInput("/home/dilmi/Desktop/Iris data set.txt");
+        double[][]input = this.getInput("/home/sulantha/Desktop/Iris data set.txt");
         double[] output;
         ANN ann = new ANN(ANNConfiguration.inputNeuronCountConfig, ANNConfiguration.hiddenLNeuronCountConfig, ANNConfiguration.outputNeuronCountConfig);
         Matrix weights = EvolverUtility.removeThresholds(weightsNBias, ann);

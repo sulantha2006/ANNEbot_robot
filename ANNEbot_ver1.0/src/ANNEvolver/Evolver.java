@@ -25,7 +25,7 @@ public class Evolver {
     private int noOfOutputNs;
     private int totalNs;
     int chromosomeLength = 0;
-    int populationSize = 100;
+    int populationSize = 10;
 
     
     private int noOfEvolutions;
@@ -37,7 +37,7 @@ public class Evolver {
     
 
     public void initialize(int numInputNeurons , int hNCount, int numOutputNeurons, int numEvolutions){
-        this.ann = new ANN(numInputNeurons,hNCount,numOutputNeurons);
+        //this.ann = new ANN(numInputNeurons,hNCount,numOutputNeurons);
         ANNConfiguration.inputNeuronCountConfig = numInputNeurons;
         ANNConfiguration.hiddenLNeuronCountConfig = hNCount;
         ANNConfiguration.outputNeuronCountConfig = numOutputNeurons;
@@ -59,7 +59,7 @@ public class Evolver {
         int averageCount = 5;
         int maxEvolutionsAllowed = 100;
         double upperThreshold = 85.0;
-        WeightModifier wm = new WeightModifier(averageCount, maxEvolutionsAllowed, upperThreshold);
+        WeightModifier wm;
         ConnectionModifier cm = new ConnectionModifier();
         NeuronModifier nm = new NeuronModifier();
         
@@ -72,10 +72,17 @@ public class Evolver {
         //End Housekeeping
         for (int i = 0; i < maxHiddenNeurons; i++) {
             ANNConfiguration.hiddenLNeuronCountConfig = i+1;
+            noOfInputNs = ANNConfiguration.inputNeuronCountConfig;
+            noOfHiddenNs = ANNConfiguration.hiddenLNeuronCountConfig;
+            noOfOutputNs = ANNConfiguration.outputNeuronCountConfig;
+            this.ann = new ANN(noOfInputNs, noOfHiddenNs, noOfOutputNs);
             initConnectionMatrix();
+            System.out.println("Number of Hidden Neurons : "+noOfHiddenNs);
             for (int j = 0; j < numOfModifiableConnections; j++) {
                 getChromosomeLength();
+                wm = new WeightModifier(averageCount, maxEvolutionsAllowed, upperThreshold);
                 IChromosome bestWeightChromosome = wm.getBestWeightChromosome(chromosomeLength, populationSize);
+                System.out.println("Chromosome Fitness : "+bestWeightChromosome.getFitnessValue());
                 int status = cm.returnStatus(bestWeightChromosome);
                 numOfModifiableConnections = ANNConfiguration.hiddenLNeuronCountConfig*(ANNConfiguration.outputNeuronCountConfig+ANNConfiguration.inputNeuronCountConfig);
                 if (status == 0) {
@@ -156,9 +163,13 @@ public class Evolver {
             }
         }
         for(int i = 0; i < noOfHiddenNs; i++){
-            for(int j = noOfInputNs+1; j < totalNs;j++){
-                if(noOfInputNs+i <= j)
+            for(int j = noOfInputNs; j < totalNs;j++){
+                if(noOfInputNs+i == j){
+                    continue;
+                }else{
                     this.ann.getConnections()[noOfInputNs+i][j] = true;
+                }
+                    
             }
         }
 
@@ -168,6 +179,8 @@ public class Evolver {
 
     private void getChromosomeLength() {
         totalNs = ANNConfiguration.inputNeuronCountConfig + ANNConfiguration.hiddenLNeuronCountConfig + ANNConfiguration.outputNeuronCountConfig;
+        noOfInputNs = ANNConfiguration.inputNeuronCountConfig;
+        noOfHiddenNs = ANNConfiguration.hiddenLNeuronCountConfig;
         int length = 0;
         for (int i = 0; i < totalNs; i++){
             for (int j = 0; j < totalNs; j++){
@@ -178,6 +191,7 @@ public class Evolver {
         }
         // Have to add the threasholds to the chromosome
         chromosomeLength = length + noOfHiddenNs + noOfOutputNs;
+        System.out.println("Length = "+chromosomeLength);
     }
 
 

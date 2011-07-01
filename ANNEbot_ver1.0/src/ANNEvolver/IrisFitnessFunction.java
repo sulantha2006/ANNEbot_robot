@@ -20,7 +20,7 @@ public class IrisFitnessFunction extends FitnessFunction{
     protected double evaluate(IChromosome ic) {
         double fitness = 0;
         ANN ann = EvolverUtility.getANNfromChromosome(ic);
-        double[][]input = this.getInput("/home/dilmi/Desktop/Iris data set.txt");
+        double[][]input = this.getInput("/home/sulantha/Desktop/Iris data set.txt");
         double[] output;
         for(int i = 0 ; i < input.length ; i++){
             output = ann.produceOutput(input[i]);
@@ -74,7 +74,7 @@ public class IrisFitnessFunction extends FitnessFunction{
 
    
     public void verificationTable(Matrix weightsNBias){
-        double[][]input = this.getInput("/home/dilmi/Desktop/Iris data set.txt");
+        double[][]input = this.getInput("/home/sulantha/Desktop/Iris data set.txt");
         double[] output;
         ANN ann = new ANN(ANNConfiguration.inputNeuronCountConfig, ANNConfiguration.hiddenLNeuronCountConfig, ANNConfiguration.outputNeuronCountConfig);
         Matrix weights = EvolverUtility.removeThresholds(weightsNBias, ann);
