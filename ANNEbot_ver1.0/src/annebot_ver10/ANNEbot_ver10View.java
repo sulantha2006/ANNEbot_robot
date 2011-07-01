@@ -303,14 +303,14 @@ public class ANNEbot_ver10View extends FrameView {
         } catch (Exception ex) {
             Logger.getLogger(ANNEbot_ver10View.class.getName()).log(Level.SEVERE, null, ex);
         }
-        try {
-        // Execute a command without arguments
-        String command = "java -jar /home/dilmi/Desktop/ANNEbotCharts/dist/ANNEbotCharts.jar";
-        Process child = Runtime.getRuntime().exec(command);
-        
-        } catch (IOException e) {
-        }
-        
+//        try {
+//        // Execute a command without arguments
+//        String command = "java -jar /home/dilmi/Desktop/ANNEbotCharts/dist/ANNEbotCharts.jar";
+//        Process child = Runtime.getRuntime().exec(command);
+//
+//        } catch (IOException e) {
+//        }
+//        
         
     }
 

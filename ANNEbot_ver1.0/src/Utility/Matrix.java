@@ -5,11 +5,13 @@
 
 package Utility;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Dilmi
  */
-public class Matrix {
+public class Matrix implements Serializable{
 
     private int numOfRows = 0;
     private int numOfCols = 0;
