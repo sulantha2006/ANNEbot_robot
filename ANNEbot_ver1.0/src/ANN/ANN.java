@@ -6,12 +6,13 @@
 package ANN;
 
 import Utility.*;
+import java.io.Serializable;
 
 /**
  *
  * @author Dilmi
  */
-public class ANN {
+public class ANN implements Serializable{
 
     int DEBUG = 0;
 

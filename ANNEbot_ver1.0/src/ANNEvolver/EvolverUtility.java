@@ -18,10 +18,25 @@ public class EvolverUtility {
     public static ANN getANNfromChromosome(IChromosome ic){
         Matrix weightsNBiasMatrix = EvolverUtility.getWeightsFromChromosome(ic, ANNConfiguration.connectionsConfig);
         ANN ann = new ANN(ANNConfiguration.inputNeuronCountConfig, ANNConfiguration.hiddenLNeuronCountConfig, ANNConfiguration.outputNeuronCountConfig);
+        ann.setConnections(ANNConfiguration.connectionsConfig);
         Matrix weights = EvolverUtility.removeThresholds(weightsNBiasMatrix, ann);
         ann.setWeights(weights);
+//        if(ic){
+//            ann.setFitness(ic.getFitnessValue());
+//        }
         return ann;
     }
+
+    public static ANN getANNfromChromosome(IChromosome ic, double fitness){
+        Matrix weightsNBiasMatrix = EvolverUtility.getWeightsFromChromosome(ic, ANNConfiguration.connectionsConfig);
+        ANN ann = new ANN(ANNConfiguration.inputNeuronCountConfig, ANNConfiguration.hiddenLNeuronCountConfig, ANNConfiguration.outputNeuronCountConfig);
+        ann.setConnections(ANNConfiguration.connectionsConfig);
+        Matrix weights = EvolverUtility.removeThresholds(weightsNBiasMatrix, ann);
+        ann.setWeights(weights);
+        ann.setFitness(fitness);
+        return ann;
+    }
+
     public static Matrix getWeightsFromChromosome(IChromosome ic, boolean [][] connections){
         int totalNeuronCount = ANNConfiguration.inputNeuronCountConfig + ANNConfiguration.hiddenLNeuronCountConfig + ANNConfiguration.outputNeuronCountConfig;
         int noInputNeuron = ANNConfiguration.inputNeuronCountConfig;

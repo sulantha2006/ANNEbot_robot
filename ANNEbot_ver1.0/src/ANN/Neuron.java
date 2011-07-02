@@ -6,12 +6,13 @@
 package ANN;
 
 import Utility.*;
+import java.io.Serializable;
 
 /**
  *
  * @author dilmi
  */
-public class Neuron {
+public class Neuron implements Serializable{
     private double value = 0;
     private double threshold = 0;
     private String NeuronType;
