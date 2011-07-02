@@ -25,7 +25,7 @@ public class Evolver {
     private int noOfOutputNs;
     private int totalNs;
     int chromosomeLength = 0;
-    int populationSize = 10;
+    int populationSize = 20;
 
     
     private int noOfEvolutions;
@@ -33,6 +33,7 @@ public class Evolver {
     private double[] validationError;
     int maxHiddenNeurons = 0;
     int numOfModifiableConnections = 0;//=noOfHiddenNs*(noOfOutputNs+noOfInputNs) at the perticular instance.
+    private boolean isReachedHundred;
 
     
 
@@ -84,13 +85,23 @@ public class Evolver {
                 IChromosome bestWeightChromosome = wm.getBestWeightChromosome(chromosomeLength, populationSize);
                 System.out.println("Chromosome Fitness : "+bestWeightChromosome.getFitnessValue());
                 int status = cm.returnStatus(bestWeightChromosome);
+                if (status == 2) {//status = 2 when the evolver found the minimum 100% fit ann
+                    isReachedHundred = true;
+                }
                 numOfModifiableConnections = ANNConfiguration.hiddenLNeuronCountConfig*(ANNConfiguration.outputNeuronCountConfig+ANNConfiguration.inputNeuronCountConfig);
-                if (status == 0) {
+                if ((status == 0)||(status == 2)) {//status = 2 when the evolver found the minimum 100% fit ann
                     break;
                 }
             }
+            if (isReachedHundred) {
+                break;
+            }
         }
-        DataLogger.writeObjectToFile("/home/sulantha/Desktop/bestANN.dat", Stats.getBest());
+        if (isReachedHundred) {
+            DataLogger.writeObjectToFile("/home/sulantha/Desktop/bestANN.dat", Stats.getBestOne());
+        }else{
+            DataLogger.writeObjectToFile("/home/sulantha/Desktop/bestANN.dat", Stats.getBest());
+        }
 
 
         /////

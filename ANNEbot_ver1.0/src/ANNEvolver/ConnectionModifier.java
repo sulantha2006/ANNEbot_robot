@@ -26,10 +26,16 @@ public class ConnectionModifier {
         }else{
             if (bestChromosome.getFitnessValue() > bestWeightChromosome.getFitnessValue()) {
                 ANNConfiguration.connectionsConfig = ANNConfiguration.oldConnectionConfig;
-                Stats.annArray[count] = EvolverUtility.getANNfromChromosome(bestChromosome, bestChromosome.getFitnessValue());
-                count++;
-                bestChromosome = null;
-                status = 0;
+                if (bestChromosome.getFitnessValue() == 100.0) {
+                    Stats.annArray[0] = EvolverUtility.getANNfromChromosome(bestChromosome, bestChromosome.getFitnessValue());
+                    bestChromosome = null;
+                    status = 2;//Reached minimum sized 100% ann
+                }else{
+                    Stats.annArray[count] = EvolverUtility.getANNfromChromosome(bestChromosome, bestChromosome.getFitnessValue());
+                    count++;
+                    bestChromosome = null;
+                    status = 0;
+                }
             }else{
                 bestChromosome = bestWeightChromosome;
                 ANNConfiguration.oldConnectionConfig = ANNConfiguration.connectionsConfig;
