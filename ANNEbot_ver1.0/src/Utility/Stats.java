@@ -30,4 +30,10 @@ public class Stats {
         return best;
     }
 
+    public static ANN getBestOne() {
+        best  = annArray[0];
+        System.out.println("Best - \n"+best.getHiddenLNeuronCount()+"  fit - "+best.getFitness());
+        return best;
+    }
+
 }

@@ -6,8 +6,10 @@
 package Utility;
 
 import ANN.ANN;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 
@@ -64,7 +66,7 @@ public class DataLogger {
         }
     }
 
-    public static void writeObjectToFile(String link, ANN object){
+    public static void writeObjectToFile(String link, Object object){
         try {
             FileOutputStream fout = new FileOutputStream(link);
             ObjectOutputStream oos = new ObjectOutputStream(fout);
@@ -75,6 +77,21 @@ public class DataLogger {
         catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    public static ANN readANNObjectFromFile(String link){
+        ANN ann = null;
+        try{
+            FileInputStream fin = new FileInputStream(link);
+            ObjectInputStream ois = new ObjectInputStream(fin);
+            ann = (ANN) ois.readObject();
+            ois.close();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return ann;
+
     }
 
 
