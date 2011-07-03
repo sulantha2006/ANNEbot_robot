@@ -16,6 +16,7 @@ import org.jgap.IChromosome;
  * @author dilmi
  */
 public class Evolver {
+    private String dataFolder = System.getProperty("user.home")+"\\ANNEbot_Devel\\annebot\\Data\\";
 
     int DEBUG = 0;
 
@@ -98,9 +99,9 @@ public class Evolver {
             }
         }
         if (isReachedHundred) {
-            DataLogger.writeObjectToFile("/home/sulantha/Desktop/bestANN.dat", Stats.getBestOne());
+            DataLogger.writeObjectToFile(dataFolder+"bestANN.dat", Stats.getBestOne());
         }else{
-            DataLogger.writeObjectToFile("/home/sulantha/Desktop/bestANN.dat", Stats.getBest());
+            DataLogger.writeObjectToFile(dataFolder+"bestANN.dat", Stats.getBest());
         }
 
 
