@@ -118,6 +118,24 @@ public class ANN implements Serializable{
         return stats;
     }
 
+     public void initConnectionMatrix() {
+        for(int i = 0; i < this.inputNeuronCount; i++){
+            for(int j = this.inputNeuronCount; j < this.totalNeuronCount;j++){
+                this.getConnections()[i][j] = true;
+            }
+        }
+        for(int i = 0; i < this.hiddenLNeuronCount; i++){
+            for(int j = this.inputNeuronCount; j < this.totalNeuronCount;j++){
+                if(this.inputNeuronCount+i == j){
+                    continue;
+                }else{
+                    this.getConnections()[this.inputNeuronCount+i][j] = true;
+                }
+
+            }
+        }
+    }
+
     public Matrix getWeights(){
         return this.weights;
     }
@@ -138,17 +156,17 @@ public class ANN implements Serializable{
         return inputNeuronCount;
     }
 
-    public void setInputNeuronCount(int inputNeuronCount) {
-        this.inputNeuronCount = inputNeuronCount;
-    }
+//    public void setInputNeuronCount(int inputNeuronCount) {
+//        this.inputNeuronCount = inputNeuronCount;
+//    }
 
     public int getOutputNeuronCount() {
         return outputNeuronCount;
     }
 
-    public void setOutputNeuronCount(int outputNeuronCount) {
-        this.outputNeuronCount = outputNeuronCount;
-    }
+//    public void setOutputNeuronCount(int outputNeuronCount) {
+//        this.outputNeuronCount = outputNeuronCount;
+//    }
 
     public int getDEBUG() {
         return DEBUG;
@@ -179,9 +197,9 @@ public class ANN implements Serializable{
         return hiddenLNeuronCount;
     }
 
-    public void setHiddenLNeuronCount(int hiddenLNeuronCount) {
-        this.hiddenLNeuronCount = hiddenLNeuronCount;
-    }
+//    public void setHiddenLNeuronCount(int hiddenLNeuronCount) {
+//        this.hiddenLNeuronCount = hiddenLNeuronCount;
+//    }
 
     public Neuron[] getNeurons() {
         return neurons;
