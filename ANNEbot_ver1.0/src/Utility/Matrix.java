@@ -12,6 +12,7 @@ import java.io.Serializable;
  * @author Dilmi
  */
 public class Matrix implements Serializable{
+    private static final long serialVersionUID = 9157839778494534701L;
 
     private int numOfRows = 0;
     private int numOfCols = 0;

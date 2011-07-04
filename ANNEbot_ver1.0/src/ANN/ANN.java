@@ -13,6 +13,7 @@ import java.io.Serializable;
  * @author Dilmi
  */
 public class ANN implements Serializable{
+    private static final long serialVersionUID = 9157839778494534699L;
 
     int DEBUG = 0;
 
@@ -25,6 +26,7 @@ public class ANN implements Serializable{
     private Matrix weights;
     private boolean [][] connections;
     private Neuron[] neurons;
+
 
 
     public ANN(int numInputNeurons , int numHiddenNeurons, int numOutputNeurons){
@@ -216,5 +218,6 @@ public class ANN implements Serializable{
     public void setTotalNeuronCount(int totalNeuronCount) {
         this.totalNeuronCount = totalNeuronCount;
     }
+
 }
 

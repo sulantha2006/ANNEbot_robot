@@ -21,9 +21,6 @@ public class EvolverUtility {
         ann.setConnections(ANNConfiguration.connectionsConfig);
         Matrix weights = EvolverUtility.removeThresholds(weightsNBiasMatrix, ann);
         ann.setWeights(weights);
-//        if(ic){
-//            ann.setFitness(ic.getFitnessValue());
-//        }
         return ann;
     }
 

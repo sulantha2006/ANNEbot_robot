@@ -13,6 +13,8 @@ import java.io.Serializable;
  * @author dilmi
  */
 public class Neuron implements Serializable{
+    private static final long serialVersionUID = 9157839778494534700L;
+    
     private double value = 0;
     private double threshold = 0;
     private String NeuronType;
