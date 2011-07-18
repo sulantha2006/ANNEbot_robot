@@ -17,7 +17,7 @@ public class NeuronModifier {
     ANN oldANN;
 
     //Creates a new ANN by adding an additional hidden neuron which is obtained by cloning the most highly connected hidden neuron in the old ANN
-    public void createNewANN(ANN pOldANN){
+    public ANN createNewANN(ANN pOldANN){
         this.oldANN = pOldANN;
         int inputNeuronCount = oldANN.getInputNeuronCount();
         int hiddenNeuronCount = oldANN.getHiddenLNeuronCount() + 1;
@@ -27,6 +27,7 @@ public class NeuronModifier {
         this.newANN.initConnectionMatrix();
         int highstConnctdHNIndex = this.getHighestConnectedHN();
         this.setNewConnections(highstConnctdHNIndex);
+        return this.newANN;
     }
 
     //Returns the index of the most highly connected hidden neuron in the old ANN
