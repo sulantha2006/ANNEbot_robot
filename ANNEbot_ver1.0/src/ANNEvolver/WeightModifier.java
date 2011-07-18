@@ -25,6 +25,9 @@ public class WeightModifier {
     private double upperThreshold;
     private IChromosome bestChromosome = null;;
     private double bestChromosomeScore;
+    
+    private double weightForValidation = 0.67;
+    private double weightForTraining = 0.33;       
 
 
     public WeightModifier(int averageCount, int maxEvolutionsAllowed, double upperThreshold) {
@@ -38,6 +41,7 @@ public class WeightModifier {
         Configuration conf = new DefaultConfiguration();
         //FitnessFunction testFunc = new IrisFitnessFunction();
         FitnessFunction testFunc = new IrisFitnessFunction();
+        IrisValidator irV = new IrisValidator();
         //FitnessFunction testFunc = new MackeyGlassFitnessFunction();
         conf.setFitnessFunction(testFunc);
 
@@ -64,19 +68,24 @@ public class WeightModifier {
                 numOfEvolutionsToThresh = maxEvolutionsAllowed;
             }
             double finalFitness = population.getFittestChromosome().getFitnessValue();
-            double score = finalFitness;
+            IChromosome bestChInCurrPop = population.getFittestChromosome();
+            double score_validation = irV.getValidationScore(bestChInCurrPop);
+            double score_training = bestChInCurrPop.getFitnessValue();
+            double score = score_validation*weightForValidation+score_training*weightForTraining;
+            bestChInCurrPop.setFitnessValue(score);
             if (bestChromosome == null) {
-                bestChromosome = population.getFittestChromosome();
+                bestChromosome = bestChInCurrPop;
                 bestChromosomeScore = score;
 
             }else{
                 if (bestChromosomeScore < score) {
-                    bestChromosome = population.getFittestChromosome();
+                    bestChromosome = bestChInCurrPop;
                     bestChromosomeScore = score;
                 }
             }
-            System.out.println("Score of this Chromosome : "+score);
+            System.out.println("Score of this Chromosome : "+score+" V - "+score_validation+" T - "+score_training);
         }
+        
         return bestChromosome;
     }
 }
