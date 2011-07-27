@@ -14,6 +14,7 @@ import ANN.ANN;
 public class Stats {
     public static ANN[] annArray;
     static ANN best = null;
+    public static ANN bestPerOneNeuronIteration = null;
 
     public static ANN getBest() {
         for (int i = 0; i < annArray.length; i++) {

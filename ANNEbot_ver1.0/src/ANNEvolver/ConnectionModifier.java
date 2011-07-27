@@ -28,10 +28,12 @@ public class ConnectionModifier {
                 ANNConfiguration.connectionsConfig = ANNConfiguration.oldConnectionConfig;
                 if (bestChromosome.getFitnessValue() == 100.0) {
                     Stats.annArray[0] = EvolverUtility.getANNfromChromosome(bestChromosome, bestChromosome.getFitnessValue());
+                    Stats.bestPerOneNeuronIteration = EvolverUtility.getANNfromChromosome(bestChromosome, bestChromosome.getFitnessValue());
                     bestChromosome = null;
                     status = 2;//Reached minimum sized 100% ann
                 }else{
                     Stats.annArray[count] = EvolverUtility.getANNfromChromosome(bestChromosome, bestChromosome.getFitnessValue());
+                    Stats.bestPerOneNeuronIteration = EvolverUtility.getANNfromChromosome(bestChromosome, bestChromosome.getFitnessValue());
                     count++;
                     bestChromosome = null;
                     status = 0;
