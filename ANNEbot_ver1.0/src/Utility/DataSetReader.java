@@ -1,8 +1,4 @@
 
-/*
-    NAME:   D.C PERERA
-    INDEX NUMBER:   070354B
- */
 package Utility;
 
 
