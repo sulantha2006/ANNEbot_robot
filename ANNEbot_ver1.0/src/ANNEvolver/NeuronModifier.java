@@ -6,6 +6,8 @@
 package ANNEvolver;
 
 import ANN.ANN;
+import Utility.ANNConfiguration;
+import Utility.BinaryUtil;
 import Utility.Matrix;
 
 /**
@@ -22,11 +24,17 @@ public class NeuronModifier {
         int inputNeuronCount = oldANN.getInputNeuronCount();
         int hiddenNeuronCount = oldANN.getHiddenLNeuronCount() + 1;
         int outputNeuronCount = oldANN.getOutputNeuronCount();
-        this.newANN = new ANN(inputNeuronCount,hiddenNeuronCount,outputNeuronCount);
-        this.newANN.getWeights().printMatrix();
+        this.newANN = new ANN(inputNeuronCount,hiddenNeuronCount,outputNeuronCount);        
         this.newANN.initConnectionMatrix();
         int highstConnctdHNIndex = this.getHighestConnectedHN();
         this.setNewConnections(highstConnctdHNIndex);
+        System.out.println("Weight Matrices (old then new)");
+        pOldANN.getWeights().printMatrix();
+        this.newANN.getWeights().printMatrix();
+        System.out.println("Connection Matrices (old then new)");
+        new Matrix(BinaryUtil.boolean2binary(pOldANN.getConnections())).printMatrix();
+        new Matrix(BinaryUtil.boolean2binary(this.newANN.getConnections())).printMatrix();
+        ANNConfiguration.connectionsConfig = this.newANN.getConnections();        
         return this.newANN;
     }
 
@@ -82,18 +90,23 @@ public class NeuronModifier {
                 ////////////////////////////////////////////////////////////////////////
                 else if(j== highstConnctdHNIndex + 1 && i< highstConnctdHNIndex + 1){
                     newWeights.set(i, j, oldWeights.get(i, j-1));
+                    newConnections[i][j] = oldConnections[i][j-1];
                 }
                 else if(j== highstConnctdHNIndex + 1 && i> highstConnctdHNIndex + 1){
                     newWeights.set(i, j, oldWeights.get(i-1, j-1));
+                    newConnections[i][j] = oldConnections[i-1][j-1];
                 }
                 else if(i == highstConnctdHNIndex + 1 && j< highstConnctdHNIndex + 1){
                     newWeights.set(i, j, oldWeights.get(i-1, j));
+                    newConnections[i][j] = oldConnections[i-1][j];
                 }
                 else if(i == highstConnctdHNIndex + 1 && j> highstConnctdHNIndex + 1){
                     newWeights.set(i, j, oldWeights.get(i-1, j-1));
+                    newConnections[i][j] = oldConnections[i-1][j-1];
                 }
                 else if(j== highstConnctdHNIndex + 1 && i== highstConnctdHNIndex + 1){
                     newWeights.set(i, j, 1);
+                     newConnections[i][j] = false;
                 }
                 ////////////////////////////////////////////////////////////////////
 
