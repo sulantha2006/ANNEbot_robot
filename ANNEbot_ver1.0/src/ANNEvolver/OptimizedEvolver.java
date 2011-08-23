@@ -22,12 +22,13 @@ public class OptimizedEvolver {
 
     private ANN ann;
     private ANN bestANN;
+    private ANN comparingANN = null;
     private int noOfInputNs;
     private int noOfHiddenNs;
     private int noOfOutputNs;
     private int totalNs;
     int chromosomeLength = 0;
-    int populationSize = 20;
+    int populationSize = 100;
 
     
     private int noOfEvolutions;
@@ -36,6 +37,7 @@ public class OptimizedEvolver {
     int maxHiddenNeurons = 0;
     int numOfModifiableConnections = 0;//=noOfHiddenNs*(noOfOutputNs+noOfInputNs) at the perticular instance.
     private boolean isReachedHundred;
+    private boolean finichsedNeuroniteration;
 
     
 
@@ -87,7 +89,6 @@ public class OptimizedEvolver {
                 noOfInputNs = ANNConfiguration.inputNeuronCountConfig;
                 noOfHiddenNs = ANNConfiguration.hiddenLNeuronCountConfig;
                 noOfOutputNs = ANNConfiguration.outputNeuronCountConfig;
-                System.out.println("ddodod");
                 this.ann = nm.createNewANN(this.bestANN);
                 System.out.println("Number of Hidden Neurons : " + noOfHiddenNs);
                 
@@ -111,6 +112,16 @@ public class OptimizedEvolver {
                 break;
             }
             this.bestANN = Stats.bestPerOneNeuronIteration;
+            if (this.comparingANN == null) {
+                comparingANN = this.bestANN;
+            }else{
+                if (comparingANN.getFitness()>this.bestANN.getFitness()) {
+                    finichsedNeuroniteration = true;
+                    break;
+                }else{
+                    comparingANN = this.bestANN;
+                }
+            }
         }
         if (isReachedHundred) {
             DataLogger.writeObjectToFile(dataFolder+"bestANN.dat", Stats.getBestOne());

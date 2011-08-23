@@ -40,9 +40,18 @@ public class WeightModifier {
         Configuration.reset();
         Configuration conf = new DefaultConfiguration();
         //FitnessFunction testFunc = new IrisFitnessFunction();
-        FitnessFunction testFunc = new IrisFitnessFunction();
-        IrisValidator irV = new IrisValidator();
-        //FitnessFunction testFunc = new MackeyGlassFitnessFunction();
+        
+        
+        //////////////////////////////Edit according to application//////////////////////
+        //FitnessFunction testFunc = new IrisFitnessFunction();
+        //IrisValidator validator = new IrisValidator();
+        //FitnessFunction testFunc = new BreastCancerFitnessFunction();
+        //BreastCancerValidator validator = new BreastCancerValidator();
+        FitnessFunction testFunc = new ParkinsonsFitnessFunction();
+        ParkinsonsValidator validator = new ParkinsonsValidator();
+        /////////////////////////////////////////////////////////////////////////////////
+        
+        
         conf.setFitnessFunction(testFunc);
 
         Gene[] sampleGenes = new Gene[chromosomeLength];
@@ -69,7 +78,7 @@ public class WeightModifier {
             }
             double finalFitness = population.getFittestChromosome().getFitnessValue();
             IChromosome bestChInCurrPop = population.getFittestChromosome();
-            double score_validation = irV.getValidationScore(bestChInCurrPop);
+            double score_validation = validator.getValidationScore(bestChInCurrPop);
             double score_training = bestChInCurrPop.getFitnessValue();
             double score = score_validation*weightForValidation+score_training*weightForTraining;
             bestChInCurrPop.setFitnessValue(score);

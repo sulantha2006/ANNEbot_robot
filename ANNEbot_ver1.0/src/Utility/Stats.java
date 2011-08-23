@@ -15,8 +15,21 @@ public class Stats {
     public static ANN[] annArray;
     static ANN best = null;
     public static ANN bestPerOneNeuronIteration = null;
+    
 
     public static ANN getBest() {
+        int nonNullCount = 0;
+        for (int i = 0; i < annArray.length; i++) {
+            if (annArray[i] != null) {
+                nonNullCount++;
+            }
+        }
+        ANN[] tempArray = new ANN[nonNullCount];
+        for (int i = 0; i < nonNullCount; i++) {
+            tempArray[i] = annArray[i];
+        }
+        annArray = tempArray;
+        
         for (int i = 0; i < annArray.length; i++) {
             System.out.println("ARRAY - \n"+annArray[i].getHiddenLNeuronCount()+"  fit - "+annArray[i].getFitness());
             if (i == 0) {

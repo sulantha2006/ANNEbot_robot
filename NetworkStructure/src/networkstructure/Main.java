@@ -14,6 +14,9 @@ import edu.uci.ics.jung.algorithms.layout.StaticLayout;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.BasicVisualizationServer;
+import edu.uci.ics.jung.visualization.VisualizationViewer;
+import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
+import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import edu.uci.ics.jung.visualization.renderers.Renderer.VertexLabel.Position;
 import java.awt.Dimension;
@@ -34,7 +37,10 @@ public class Main {
     public static void main(String[] args) {
         ANN ann = null;
         
+        //ann = DataLogger.readANNObjectFromFile(dataFolder+"bestANN_best.dat");
+        //ann = DataLogger.readANNObjectFromFile(dataFolder+"bestANNBC2.dat"); 
         ann = DataLogger.readANNObjectFromFile(dataFolder+"bestANN.dat");
+        
         Neuron [] neurons = ann.getNeurons();
         final int noInputNeurons = ann.getInputNeuronCount();
         final int noOutputNeurons = ann.getOutputNeuronCount();
@@ -85,11 +91,19 @@ public class Main {
         };
         Layout<Integer, String> layout = new StaticLayout(g,locationTransformer);
         layout.setSize(new Dimension(maxGraphSize_w,maxGraphSize_h));
-        BasicVisualizationServer<Integer,String> vv = new BasicVisualizationServer<Integer,String>(layout);
+        VisualizationViewer<Integer,String> vv = new VisualizationViewer<Integer,String>(layout);
+        //BasicVisualizationServer<Integer,String> vv = new BasicVisualizationServer<Integer,String>(layout);
         vv.setPreferredSize(new Dimension(maxGraphSize_w+50,maxGraphSize_h+50));
         vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
         vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller());
         vv.getRenderer().getVertexLabelRenderer().setPosition(Position.CNTR);
+        
+        DefaultModalGraphMouse gm = new DefaultModalGraphMouse();
+        gm.setMode(ModalGraphMouse.Mode.TRANSFORMING);
+        try {
+            vv.setGraphMouse(gm);
+        } catch (Exception e) {
+        }
 
         JFrame frame = new JFrame("Simple Graph View");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
