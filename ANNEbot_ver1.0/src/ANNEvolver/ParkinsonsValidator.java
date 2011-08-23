@@ -18,7 +18,7 @@ public class ParkinsonsValidator {
     public double getValidationScore(IChromosome ic) {
         double score = 0;
         ANN ann = EvolverUtility.getANNfromChromosome(ic);
-        double[][] input = this.getInput(dataFolder + "ParkinsonsEANNValidation.txt");
+        double[][] input = this.getInput(dataFolder + "ParkinsonsOrigEANNValidation.txt");
         double[] output;
         for (int i = 0; i < input.length; i++) {
             output = ann.produceOutput(input[i]);
@@ -51,7 +51,7 @@ public class ParkinsonsValidator {
     }
 
     double[][] getInput(String filePath) {
-        String[][] stringInput = Utility.DataSetReader.readDataSet(filePath, 9, ",");
+        String[][] stringInput = Utility.DataSetReader.readDataSet(filePath, 23, ",");
         double[][] doubleInput = new double[stringInput.length][stringInput[0].length];
         for (int i = 0; i < doubleInput.length; i++) {
             for (int j = 0; j < doubleInput[i].length; j++) {

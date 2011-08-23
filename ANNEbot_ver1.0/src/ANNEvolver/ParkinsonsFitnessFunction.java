@@ -21,7 +21,7 @@ public class ParkinsonsFitnessFunction extends FitnessFunction{
     protected double evaluate(IChromosome ic) {
         double fitness = 0;
         ANN ann = EvolverUtility.getANNfromChromosome(ic);
-        double[][]input = this.getInput(dataFolder+"ParkinsonsEANNTraining.txt");
+        double[][]input = this.getInput(dataFolder+"ParkinsonsOrigEANNTraining.txt");
         double[] output;
         for(int i = 0 ; i < input.length ; i++){
             output = ann.produceOutput(input[i]);
@@ -31,7 +31,7 @@ public class ParkinsonsFitnessFunction extends FitnessFunction{
     }
 
     double[][] getInput(String filePath){
-        String [][]stringInput = Utility.DataSetReader.readDataSet(filePath, 9 , "," );
+        String [][]stringInput = Utility.DataSetReader.readDataSet(filePath, 23 , "," );
         double [][] doubleInput = new double [stringInput.length][stringInput[0].length];
         for(int i  = 0 ; i < doubleInput.length ; i++){
             for(int j  = 0 ; j < doubleInput[i].length; j++){
