@@ -29,11 +29,11 @@ public class NeuronModifier {
         int highstConnctdHNIndex = this.getHighestConnectedHN();
         this.setNewConnections(highstConnctdHNIndex);
         //System.out.println("Weight Matrices (old then new)");
-        pOldANN.getWeights().printMatrix();
-        this.newANN.getWeights().printMatrix();
+        //pOldANN.getWeights().printMatrix();
+        //this.newANN.getWeights().printMatrix();
         //System.out.println("Connection Matrices (old then new)");
-        new Matrix(BinaryUtil.boolean2binary(pOldANN.getConnections())).printMatrix();
-        new Matrix(BinaryUtil.boolean2binary(this.newANN.getConnections())).printMatrix();
+        //new Matrix(BinaryUtil.boolean2binary(pOldANN.getConnections())).printMatrix();
+        //new Matrix(BinaryUtil.boolean2binary(this.newANN.getConnections())).printMatrix();
         ANNConfiguration.connectionsConfig = this.newANN.getConnections();        
         return this.newANN;
     }

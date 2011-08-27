@@ -67,7 +67,6 @@ public class OptimizedEvolver {
         WeightModifier wm;
         ConnectionModifier cm = new ConnectionModifier();
         NeuronModifier nm = new NeuronModifier();
-        
         numOfModifiableConnections = ANNConfiguration.hiddenLNeuronCountConfig*(ANNConfiguration.outputNeuronCountConfig+ANNConfiguration.inputNeuronCountConfig);
 //        Configuration conf = new DefaultConfiguration();
 //        //FitnessFunction testFunc = new IrisFitnessFunction();
@@ -228,7 +227,7 @@ public class OptimizedEvolver {
         }
         // Have to add the threasholds to the chromosome
         chromosomeLength = length + noOfHiddenNs + noOfOutputNs;
-        System.out.println("Length = "+chromosomeLength);
+        System.out.println("Total number of modifiable values in network : "+chromosomeLength);
     }
 
 
