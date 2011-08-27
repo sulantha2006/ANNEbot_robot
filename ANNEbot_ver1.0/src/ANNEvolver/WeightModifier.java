@@ -43,12 +43,12 @@ public class WeightModifier {
         
         
         //////////////////////////////Edit according to application//////////////////////
-        //FitnessFunction testFunc = new IrisFitnessFunction();
-        //IrisValidator validator = new IrisValidator();
+        FitnessFunction testFunc = new IrisFitnessFunction();
+        IrisValidator validator = new IrisValidator();
         //FitnessFunction testFunc = new BreastCancerFitnessFunction();
         //BreastCancerValidator validator = new BreastCancerValidator();
-        FitnessFunction testFunc = new ParkinsonsFitnessFunction();
-        ParkinsonsValidator validator = new ParkinsonsValidator();
+        //FitnessFunction testFunc = new ParkinsonsFitnessFunction();
+        //ParkinsonsValidator validator = new ParkinsonsValidator();
         /////////////////////////////////////////////////////////////////////////////////
         
         

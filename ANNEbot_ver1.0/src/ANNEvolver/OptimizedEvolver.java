@@ -28,7 +28,7 @@ public class OptimizedEvolver {
     private int noOfOutputNs;
     private int totalNs;
     int chromosomeLength = 0;
-    int populationSize = 100;
+    int populationSize = 20;
 
     
     private int noOfEvolutions;

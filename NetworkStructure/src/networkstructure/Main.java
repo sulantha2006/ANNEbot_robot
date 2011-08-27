@@ -38,8 +38,8 @@ public class Main {
         ANN ann = null;
         
         //ann = DataLogger.readANNObjectFromFile(dataFolder+"bestANN_best.dat");
-        ann = DataLogger.readANNObjectFromFile(dataFolder+"bestANNBC2.dat"); 
-        //ann = DataLogger.readANNObjectFromFile(dataFolder+"bestANN.dat");
+        //ann = DataLogger.readANNObjectFromFile(dataFolder+"bestANNBC2.dat"); 
+        ann = DataLogger.readANNObjectFromFile(dataFolder+"bestANN.dat");
         
         Neuron [] neurons = ann.getNeurons();
         final int noInputNeurons = ann.getInputNeuronCount();
