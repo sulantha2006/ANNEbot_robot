@@ -2,23 +2,24 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package ANNEvolver;
+package SampleFitnessFunctions;
 
 import ANN.ANN;
+import ANNEvolver.EvolverUtility;
 import org.jgap.IChromosome;
 
 /**
  *
  * @author Sulantha
  */
-public class ParkinsonsValidator {
+public class BreastCancerValidator {
 
     private String dataFolder = System.getProperty("user.home") + "\\ANNEbot_Devel\\annebot\\Data\\";
 
     public double getValidationScore(IChromosome ic) {
         double score = 0;
         ANN ann = EvolverUtility.getANNfromChromosome(ic);
-        double[][] input = this.getInput(dataFolder + "ParkinsonsOrigEANNValidation.txt");
+        double[][] input = this.getInput(dataFolder + "BreastCancerValidation.txt");
         double[] output;
         for (int i = 0; i < input.length; i++) {
             output = ann.produceOutput(input[i]);
@@ -51,7 +52,7 @@ public class ParkinsonsValidator {
     }
 
     double[][] getInput(String filePath) {
-        String[][] stringInput = Utility.DataSetReader.readDataSet(filePath, 23, ",");
+        String[][] stringInput = Utility.DataSetReader.readDataSet(filePath, 31, ",");
         double[][] doubleInput = new double[stringInput.length][stringInput[0].length];
         for (int i = 0; i < doubleInput.length; i++) {
             for (int j = 0; j < doubleInput[i].length; j++) {

@@ -3,8 +3,9 @@
  * and open the template in the editor.
  */
 
-package ANNEvolver;
+package SampleFitnessFunctions;
 import ANN.ANN;
+import ANNEvolver.EvolverUtility;
 import Utility.ANNConfiguration;
 import Utility.Matrix;
 import org.jgap.FitnessFunction;
@@ -14,14 +15,14 @@ import org.jgap.IChromosome;
  *
  * @author Dilmi
  */
-public class BreastCancerFitnessFunction extends FitnessFunction{
+public class ParkinsonsFitnessFunction extends FitnessFunction{
     private String dataFolder = System.getProperty("user.home")+"\\ANNEbot_Devel\\annebot\\Data\\";
 
     @Override
     protected double evaluate(IChromosome ic) {
         double fitness = 0;
         ANN ann = EvolverUtility.getANNfromChromosome(ic);
-        double[][]input = this.getInput(dataFolder+"BreastCancerTraining.txt");
+        double[][]input = this.getInput(dataFolder+"ParkinsonsOrigEANNTraining.txt");
         double[] output;
         for(int i = 0 ; i < input.length ; i++){
             output = ann.produceOutput(input[i]);
@@ -31,7 +32,7 @@ public class BreastCancerFitnessFunction extends FitnessFunction{
     }
 
     double[][] getInput(String filePath){
-        String [][]stringInput = Utility.DataSetReader.readDataSet(filePath, 31 , "," );
+        String [][]stringInput = Utility.DataSetReader.readDataSet(filePath, 23 , "," );
         double [][] doubleInput = new double [stringInput.length][stringInput[0].length];
         for(int i  = 0 ; i < doubleInput.length ; i++){
             for(int j  = 0 ; j < doubleInput[i].length; j++){
