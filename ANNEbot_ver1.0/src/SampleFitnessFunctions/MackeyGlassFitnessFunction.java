@@ -3,8 +3,9 @@
  * and open the template in the editor.
  */
 
-package ANNEvolver;
+package SampleFitnessFunctions;
 import ANN.ANN;
+import ANNEvolver.EvolverUtility;
 import Utility.ANNConfiguration;
 import Utility.Matrix;
 import org.jgap.FitnessFunction;

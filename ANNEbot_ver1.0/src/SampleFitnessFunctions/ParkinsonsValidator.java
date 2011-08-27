@@ -2,27 +2,28 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package ANNEvolver;
+package SampleFitnessFunctions;
 
 import ANN.ANN;
+import ANNEvolver.EvolverUtility;
 import org.jgap.IChromosome;
 
 /**
  *
  * @author Sulantha
  */
-public class IrisValidator {
+public class ParkinsonsValidator {
 
     private String dataFolder = System.getProperty("user.home") + "\\ANNEbot_Devel\\annebot\\Data\\";
 
     public double getValidationScore(IChromosome ic) {
         double score = 0;
         ANN ann = EvolverUtility.getANNfromChromosome(ic);
-        double[][] input = this.getInput(dataFolder + "Iris Validation Set.txt");
+        double[][] input = this.getInput(dataFolder + "ParkinsonsOrigEANNValidation.txt");
         double[] output;
         for (int i = 0; i < input.length; i++) {
             output = ann.produceOutput(input[i]);
-            score = score + this.getFitness(output, input[i][4]);
+            score = score + this.getFitness(output, input[i][0]);
         }
         return score / input.length * 100;
     }
@@ -51,21 +52,22 @@ public class IrisValidator {
     }
 
     double[][] getInput(String filePath) {
-        String[][] stringInput = Utility.DataSetReader.readDataSet(filePath, 5, ",");
+        String[][] stringInput = Utility.DataSetReader.readDataSet(filePath, 23, ",");
         double[][] doubleInput = new double[stringInput.length][stringInput[0].length];
         for (int i = 0; i < doubleInput.length; i++) {
             for (int j = 0; j < doubleInput[i].length; j++) {
-                if (j == 4) {
-                    if (stringInput[i][j].equals("Iris-setosa")) {
-                        doubleInput[i][j] = 1;
-                    } else if (stringInput[i][j].equals("Iris-versicolor")) {
-                        doubleInput[i][j] = 2;
-                    } else if (stringInput[i][j].equals("Iris-virginica")) {
-                        doubleInput[i][j] = 3;
-                    }
-                } else {
-                    doubleInput[i][j] = Double.valueOf(stringInput[i][j]);
-                }
+                doubleInput[i][j] = Double.valueOf(stringInput[i][j]);
+//                if (j == 4) {
+//                    if (stringInput[i][j].equals("Iris-setosa")) {
+//                        doubleInput[i][j] = 1;
+//                    } else if (stringInput[i][j].equals("Iris-versicolor")) {
+//                        doubleInput[i][j] = 2;
+//                    } else if (stringInput[i][j].equals("Iris-virginica")) {
+//                        doubleInput[i][j] = 3;
+//                    }
+//                } else {
+//                    doubleInput[i][j] = Double.valueOf(stringInput[i][j]);
+//                }
             }
         }
         return doubleInput;

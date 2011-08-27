@@ -5,6 +5,8 @@
 
 package ANNEvolver;
 
+import SampleFitnessFunctions.ParkinsonsFitnessFunction;
+import SampleFitnessFunctions.ParkinsonsValidator;
 import org.jgap.Chromosome;
 import org.jgap.Configuration;
 import org.jgap.FitnessFunction;

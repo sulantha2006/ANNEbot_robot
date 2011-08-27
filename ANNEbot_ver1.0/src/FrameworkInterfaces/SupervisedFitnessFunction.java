@@ -2,9 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package ANNEvolver;
+package FrameworkInterfaces;
 
 import ANN.ANN;
+import ANNEvolver.EvolverUtility;
 import org.jgap.FitnessFunction;
 import org.jgap.IChromosome;
 
@@ -12,14 +13,16 @@ import org.jgap.IChromosome;
  *
  * @author Dilmi
  */
-public class ClassificationFitnessFunction extends FitnessFunction {
+public class SupervisedFitnessFunction extends FitnessFunction {
     double[][]input;
     double[] output;
+  
     
-    public ClassificationFitnessFunction(double inputset[][], double desiredOutput[]){
+    public SupervisedFitnessFunction(double inputset[][], double desiredOutput[]){
         this.input = inputset;
         this.output = desiredOutput;
     }
+    
     
 
     @Override
@@ -37,7 +40,10 @@ public class ClassificationFitnessFunction extends FitnessFunction {
 
     
 
-     private double getFitness(double output[], double irisType){
+     public double getFitness(//<editor-fold defaultstate="collapsed" desc="comment">
+            double output[], double desiredOutput
+            //</editor-fold>
+){
         double fitness = 0;
         double max = output[0];
         int maxIndex = 0;
@@ -55,7 +61,7 @@ public class ClassificationFitnessFunction extends FitnessFunction {
             
 
         }
-        if((maxIndex+1)==irisType){fitness=1;}       
+        if((maxIndex+1)==desiredOutput){fitness=1;}       
         return fitness;
     }
     
