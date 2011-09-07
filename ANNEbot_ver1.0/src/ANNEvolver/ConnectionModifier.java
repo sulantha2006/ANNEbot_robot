@@ -72,6 +72,7 @@ public class ConnectionModifier {
             //ANNConfiguration.oldConnectionConfig = ANNConfiguration.connectionsConfig;
             ANNConfiguration.connectionsConfig[minPos_i][min_Pos_j] = false;
         }
+        System.out.println("Count : "+count);
         return status;
     }
 

@@ -20,34 +20,53 @@ public class ANN implements Serializable{
     private int inputNeuronCount = 0;
     private int outputNeuronCount = 0;
     private int hiddenLNeuronCount = 0;
-    private int totalNeuronCount;
-    private boolean[][] hiddenNodes;
+    private int totalNeuronCount;    
     private double fitness = 0;
     private Matrix weights;
     private boolean [][] connections;
     private Neuron[] neurons;
-
-
+    private String hlTransferFunc = "step";
+    private double hlConst = 1;
+    private String olTransferFunc= "linear";
+    private double olConst = 1;
+    
+  
+    public ANN(int numInputNeurons , int numOutputNeurons){
+        this.initANN(numInputNeurons,0,numOutputNeurons);
+    }
 
     public ANN(int numInputNeurons , int numHiddenNeurons, int numOutputNeurons){
+        this.initANN(numInputNeurons,numHiddenNeurons,numOutputNeurons);
+    }
+    
+    public ANN(int numInputNeurons , int numHiddenNeurons, int numOutputNeurons, String hlTransferF,String olTransferF ){
+        this.hlTransferFunc = hlTransferF;
+        this.olTransferFunc = olTransferF;
+        this.initANN(numInputNeurons,numHiddenNeurons,numOutputNeurons);
+    }
+    
+    public ANN(int numInputNeurons , int numHiddenNeurons, int numOutputNeurons, String hlTransferF, double hlconstant, String olTransferF ){
+        this.hlTransferFunc = hlTransferF;
+        this.hlConst = hlconstant;
+        this.olTransferFunc = olTransferF;
+        this.initANN(numInputNeurons,numHiddenNeurons,numOutputNeurons);
+    }
+    
+    public ANN(int numInputNeurons , int numHiddenNeurons, int numOutputNeurons, String hlTransferF, double hlconstant, String olTransferF, double olconstant ){
+        this.hlTransferFunc = hlTransferF;
+        this.hlConst = hlconstant;
+        this.olTransferFunc = olTransferF;
+        this.olConst = olconstant;
+        this.initANN(numInputNeurons,numHiddenNeurons,numOutputNeurons);
+    }
+    
+    private void initANN(int numInputNeurons , int numHiddenNeurons, int numOutputNeurons){
         this.inputNeuronCount = numInputNeurons ;
         this.outputNeuronCount = numOutputNeurons ;
         this.hiddenLNeuronCount = numHiddenNeurons;
-        this.totalNeuronCount = this.inputNeuronCount+this.outputNeuronCount+this.hiddenLNeuronCount;
-        this.hiddenNodes = new boolean[this.totalNeuronCount][this.totalNeuronCount];
+        this.totalNeuronCount = this.inputNeuronCount+this.outputNeuronCount+this.hiddenLNeuronCount;        
         this.connections = new boolean[this.totalNeuronCount][this.totalNeuronCount];
-        this.initANN();
-    }
-
-    public ANN(int numInputNeurons , int numOutputNeurons){
-        this.inputNeuronCount = numInputNeurons ;
-        this.outputNeuronCount = numOutputNeurons ;
-        this.totalNeuronCount = this.inputNeuronCount+this.outputNeuronCount+this.hiddenLNeuronCount;
-        this.connections = new boolean[this.totalNeuronCount][this.totalNeuronCount];
-        this.initANN();
-    }
-
-    private void initANN(){
+        
         this.weights = new Matrix(this.totalNeuronCount,this.totalNeuronCount);
         this.connections = new boolean [this.totalNeuronCount][this.totalNeuronCount];
         this.neurons = new Neuron[this.totalNeuronCount];
@@ -56,15 +75,17 @@ public class ANN implements Serializable{
                 neurons[i] = new Neuron("Input Neuron");
             }
             else if(i<=this.inputNeuronCount && i<(this.inputNeuronCount+this.hiddenLNeuronCount)){
-                neurons[i] = new Neuron("Hidden Neuron");
+                if(this.hlConst==1)neurons[i] = new Neuron("Hidden Neuron",this.hlTransferFunc);
+                else neurons[i] = new Neuron("Hidden Neuron",this.hlTransferFunc,this.hlConst);
             }
             else
-                neurons[i] = new Neuron("Output Neuron");
+                if(this.olConst==1)neurons[i] = new Neuron("Output Neuron",this.olTransferFunc);
+                else neurons[i] = new Neuron("Output Neuron",this.olTransferFunc,this.olConst);
         }
 
     }
 
-        public double[] produceOutput(double []input){
+    public double[] produceOutput(double []input){
         double output [] = new double [this.getOutputNeuronCount()] ;
 
         //for Input Neurons
@@ -88,6 +109,35 @@ public class ANN implements Serializable{
             }
             if(value > this.getNeurons()[i].getThreshold())this.getNeurons()[i].setValue(value);
             output[i-(this.getTotalNeuronCount()-this.getOutputNeuronCount())] = value;
+        }
+        return output;
+
+    }
+    
+     public double[] produceCorrectOutput(double []input,String hlTransferFunc, String olTransferFunc){
+        double output [] = new double [this.getOutputNeuronCount()] ;
+
+        //for Input Neurons
+        for(int i = 0 ; i < this.getInputNeuronCount() ; i++){
+            this.getNeurons()[i].setValue(input[i]);
+        }
+        //for Hidden Neurons
+        double value = 0;
+        for(int i = this.getInputNeuronCount() ; i < (this.getTotalNeuronCount()-this.getOutputNeuronCount()); i++){
+            for(int j = 0 ; j< this.getTotalNeuronCount() ; j++){
+                value = value + (this.getNeurons()[j].getValue()*this.getWeights().get(j, i));
+            }
+            this.getNeurons()[i].setOutput(value + this.getNeurons()[i].getThreshold(), hlTransferFunc);
+        }
+
+        //for Output Neurons
+        value = 0;
+        for(int i = this.getTotalNeuronCount()-this.getOutputNeuronCount() ; i < this.getTotalNeuronCount(); i++){
+            for(int j = 0 ; j< this.getTotalNeuronCount(); j++){
+                value = value + (this.getNeurons()[j].getValue()*this.getWeights().get(j, i));
+            }
+            this.getNeurons()[i].setOutput(value + this.getNeurons()[i].getThreshold(), olTransferFunc);
+            output[i-(this.getTotalNeuronCount()-this.getOutputNeuronCount())] = this.getNeurons()[i].getValue();
         }
         return output;
 
@@ -158,17 +208,9 @@ public class ANN implements Serializable{
         return inputNeuronCount;
     }
 
-//    public void setInputNeuronCount(int inputNeuronCount) {
-//        this.inputNeuronCount = inputNeuronCount;
-//    }
-
     public int getOutputNeuronCount() {
         return outputNeuronCount;
     }
-
-//    public void setOutputNeuronCount(int outputNeuronCount) {
-//        this.outputNeuronCount = outputNeuronCount;
-//    }
 
     public int getDEBUG() {
         return DEBUG;
@@ -186,22 +228,9 @@ public class ANN implements Serializable{
         this.fitness = fitness;
     }
 
-    public boolean[][] getHiddenNodes() {
-        return hiddenNodes;
-    }
-
-    public void setHiddenNodes(boolean[][] hiddenNodes) {
-        this.hiddenNodes = hiddenNodes;
-    }
-
-    
     public int getHiddenLNeuronCount() {
         return hiddenLNeuronCount;
     }
-
-//    public void setHiddenLNeuronCount(int hiddenLNeuronCount) {
-//        this.hiddenLNeuronCount = hiddenLNeuronCount;
-//    }
 
     public Neuron[] getNeurons() {
         return neurons;
@@ -218,6 +247,37 @@ public class ANN implements Serializable{
     public void setTotalNeuronCount(int totalNeuronCount) {
         this.totalNeuronCount = totalNeuronCount;
     }
+    
+    public double getHlConst() {
+        return hlConst;
+    }
 
+    public void setHlConst(double hlConst) {
+        this.hlConst = hlConst;
+    }
+
+    public String getHlTransferFunc() {
+        return hlTransferFunc;
+    }
+
+    public void setHlTransferFunc(String hlTransferFunc) {
+        this.hlTransferFunc = hlTransferFunc;
+    }
+
+    public double getOlConst() {
+        return olConst;
+    }
+
+    public void setOlConst(double olConst) {
+        this.olConst = olConst;
+    }
+
+    public String getOlTransferFunc() {
+        return olTransferFunc;
+    }
+
+    public void setOlTransferFunc(String olTransferFunc) {
+        this.olTransferFunc = olTransferFunc;
+    }
 }
 

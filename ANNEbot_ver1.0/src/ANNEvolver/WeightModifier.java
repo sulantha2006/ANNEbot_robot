@@ -7,6 +7,8 @@ package ANNEvolver;
 
 import SampleFitnessFunctions.IrisFitnessFunction;
 import SampleFitnessFunctions.IrisValidator;
+import SampleFitnessFunctions.RobotFitnessFunction;
+import SampleFitnessFunctions.RobotValidator;
 import org.jgap.Chromosome;
 import org.jgap.Configuration;
 import org.jgap.FitnessFunction;
@@ -45,12 +47,14 @@ public class WeightModifier {
         
         
         //////////////////////////////Edit according to application//////////////////////
-        FitnessFunction testFunc = new IrisFitnessFunction();
-        IrisValidator validator = new IrisValidator();
+        //FitnessFunction testFunc = new IrisFitnessFunction();
+        //IrisValidator validator = new IrisValidator();
         //FitnessFunction testFunc = new BreastCancerFitnessFunction();
         //BreastCancerValidator validator = new BreastCancerValidator();
         //FitnessFunction testFunc = new ParkinsonsFitnessFunction();
         //ParkinsonsValidator validator = new ParkinsonsValidator();
+        RobotFitnessFunction testFunc = new RobotFitnessFunction();
+        RobotValidator validator = new RobotValidator();
         /////////////////////////////////////////////////////////////////////////////////
         
         
@@ -58,7 +62,7 @@ public class WeightModifier {
 
         Gene[] sampleGenes = new Gene[chromosomeLength];
         for (int i=0; i<chromosomeLength; i++){
-            sampleGenes[i] = new DoubleGene(conf, -10.0, 10.0);
+            sampleGenes[i] = new DoubleGene(conf, 0, 1.0);
         }
         Chromosome sampleChromosome = new Chromosome(conf, sampleGenes );
         conf.setSampleChromosome( sampleChromosome );

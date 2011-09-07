@@ -27,7 +27,6 @@ public class OptimizedEvolver {
     private int totalNs;
     private int chromosomeLength = 0;
     private int populationSize = 2;
-    private int noOfEvolutions;
     private int maxHiddenNeurons = 0;
     private int numOfModifiableConnections = 0;//=noOfHiddenNs*(noOfOutputNs+noOfInputNs) at the perticular instance.
     private boolean isReachedHundred;
@@ -36,11 +35,18 @@ public class OptimizedEvolver {
     private int WM_maxEvolutionsAllowed = 100;
     private double WM_upperThreshold = 85.0;
 
-    public OptimizedEvolver(int noOfInputNs, int noOfHiddenNs, int noOfOutputNs, int noOfEvolutions, int WM_averageCount, int WM_maxEvolutionsAllowed, double WM_upperThreshold, String dataFolder) {
-        this.initialize(noOfInputNs, noOfHiddenNs, noOfOutputNs, noOfEvolutions, WM_averageCount, WM_maxEvolutionsAllowed, WM_upperThreshold, dataFolder);
+    public OptimizedEvolver(int noOfInputNs, int noOfHiddenNs, int noOfOutputNs, int populationSize, int WM_averageCount, int WM_maxEvolutionsAllowed, double WM_upperThreshold, String dataFolder) {
+        this.initialize(noOfInputNs, noOfHiddenNs, noOfOutputNs, populationSize, WM_averageCount, WM_maxEvolutionsAllowed, WM_upperThreshold, dataFolder);
     }
 
-    private void initialize(int numInputNeurons, int hNCount, int numOutputNeurons, int numEvolutions, int WM_averageCount, int WM_maxEvolutionsAllowed, double WM_upperThreshold, String dataFolder) {
+    public OptimizedEvolver(int noOfInputNs, int noOfHiddenNs, int noOfOutputNs, int populationSize, int WM_averageCount, int WM_maxEvolutionsAllowed, double WM_upperThreshold) {
+        this.initialize(noOfInputNs, noOfHiddenNs, noOfOutputNs, populationSize, WM_averageCount, WM_maxEvolutionsAllowed, WM_upperThreshold, dataFolder);
+    }
+    
+    public OptimizedEvolver(int noOfInputNs, int noOfHiddenNs, int noOfOutputNs, int populationSize) {
+        this.initialize(noOfInputNs, noOfHiddenNs, noOfOutputNs, populationSize, WM_averageCount, WM_maxEvolutionsAllowed, WM_upperThreshold, dataFolder);
+    }
+    private void initialize(int numInputNeurons, int hNCount, int numOutputNeurons, int populationSize, int WM_averageCount, int WM_maxEvolutionsAllowed, double WM_upperThreshold, String dataFolder) {
         ANNConfiguration.inputNeuronCountConfig = numInputNeurons;
         ANNConfiguration.hiddenLNeuronCountConfig = hNCount;
         ANNConfiguration.outputNeuronCountConfig = numOutputNeurons;
@@ -48,8 +54,8 @@ public class OptimizedEvolver {
         this.noOfHiddenNs = hNCount;
         this.maxHiddenNeurons = hNCount;
         this.noOfOutputNs = numOutputNeurons;
-        this.noOfEvolutions = numEvolutions;
         this.totalNs = noOfInputNs + noOfHiddenNs + noOfOutputNs;
+        this.populationSize = populationSize;
         this.WM_averageCount = WM_averageCount;
         this.WM_maxEvolutionsAllowed = WM_maxEvolutionsAllowed;
         this.WM_upperThreshold = WM_upperThreshold;
@@ -105,7 +111,7 @@ public class OptimizedEvolver {
             if (this.comparingANN == null) {
                 comparingANN = this.bestANN;
             } else {
-                if (comparingANN.getFitness() > this.bestANN.getFitness()) {
+                if ((comparingANN.getFitness() > this.bestANN.getFitness())&&this.bestANN.getFitness()>80.0) {
                     finichsedNeuroniteration = true;
                     break;
                 } else {
